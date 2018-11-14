@@ -9,13 +9,18 @@
             padding: 0;
             margin: 0;
             background: whitesmoke;
-           
+
         }
 
         .bubbles {
             fill-opacity: 0.5;
             fill: black;
             stroke: white;
+        }
+
+        .bubbles:hover {
+            fill: yellow;
+
         }
 
         .active {
@@ -94,7 +99,8 @@
 
             console.log(europe);
 
-            projection.fitSize([width - 500, height + 20], europe);
+            //projection.fitSize([width - 500, height + 20], europe);
+            projection.fitSize([width - 50, height + 20], europe);
 
             svg.append("g")
                 .selectAll("path")
@@ -113,7 +119,7 @@
 
             console.log(languages)
 
-            svg.selectAll("circle")
+            var bubbles = svg.selectAll("circle")
                 .data(languages.features)
                 .enter().append("circle")
                 .attr('r', function (d) {
@@ -131,6 +137,11 @@
                     .on("drag", dragged)
                     .on("end", dragEnd));
 
+            bubbles.append("svg:title")
+                .text(function (d) {
+                    return d.properties.Name;
+                });
+
             function dragStart(d) {
                 d3.select(this).raise().classed("active", true);
             }
@@ -140,9 +151,19 @@
             }
 
             function dragEnd(d) {
-                d3.select(this).classed("active", false);
-            }
+                d3.select(this)
+                    .classed("active", false)
+                    .transition()
+                    .duration(1500)
+                    .attr('cx', function (d) {
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr('cy', function (d) {
+                        return projection(d.geometry.coordinates)[1]
 
+                    })
+
+            }
         }
     </script>
 </body>
