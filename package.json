@@ -1,0 +1,30 @@
+{
+  "name": "sebastian-ch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@turf/turf": "^5.1.6",
+    "chalk": "^2.3.0",
+    "csv2geojson": "^5.0.2",
+    "d3": "^4.12.2",
+    "geojson-validation": "^0.2.0",
+    "mapshaper": "^0.4.59",
+    "opn": "^5.1.0",
+    "shapefile": "^0.6.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastian-ch/web-mappingtemplate.git"
+  },
+  "author": "Sebastian Hancock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebastian-ch/web-mappingtemplate/issues"
+  },
+  "homepage": "https://github.com/sebastian-ch/web-mappingtemplate#readme"
+}

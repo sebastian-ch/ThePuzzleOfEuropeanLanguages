@@ -1,0 +1,152 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>D3 Template</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background: whitesmoke;
+            font-family: Montserrat, sans-serif;
+        }
+
+        .bubbles {
+            fill-opacity: 0.5;
+            fill: black;
+            stroke: white;
+        }
+
+        .active {
+            stroke: #000;
+            stroke-width: 2px;
+        }
+
+        h1 {
+            width: 90%;
+            margin: 10px auto 10px auto;
+            left: 20px;
+            top: 10px;
+            font-size: 2em;
+            font-weight: 100;
+            color: #005DAA;
+        }
+
+        #map {
+            width: 80%;
+            margin: 10px auto 10px auto;
+            border: 1px solid #d3d3d3;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>👏👏👏</h1>
+
+    <div id="map"></div>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+
+    <script>
+        var margin = {
+                top: 10,
+                left: 10,
+                bottom: 10,
+                right: 10
+            },
+
+            width = parseInt(d3.select('#map').style('width')),
+            width = width - margin.left - margin.right,
+            mapRatio = .5,
+            //height = width * mapRatio;
+            height = 800;
+
+        var svg = d3.select("#map")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        //var files = ["/geojsons/states.geojson", "/geojsons/us-counties-topo.json"];
+        var files = ["/geojsons/europe.geojson", "/geojsons/languages.geojson"];
+        var promises = [];
+
+
+        files.forEach(function (url) {
+            promises.push(d3.json(url))
+        });
+
+        Promise.all(promises).then(function (values) {
+            makeMap(values[0], values[1])
+        });
+
+        var projection = d3.geoMercator();
+        var geoPath = d3.geoPath()
+            .projection(projection);
+
+
+        var radius = d3.scaleLog();
+
+        function makeMap(europe, languages) {
+
+            console.log(europe);
+
+            projection.fitSize([width - 500, height + 20], europe);
+
+            svg.append("g")
+                .selectAll("path")
+                .data(europe.features)
+                .enter()
+                .append("path")
+                .attr("d", geoPath)
+                .attr("stroke", "rgba(8, 81, 156, 0.2)")
+                .attr("fill", "lightgrey")
+                .attr("class", "europe");
+
+            addBubbles(languages)
+        }
+
+        function addBubbles(languages) {
+
+            console.log(languages)
+
+            svg.selectAll("circle")
+                .data(languages.features)
+                .enter().append("circle")
+                .attr('r', function (d) {
+                    return radius(d.properties.speakers) * 2
+                })
+                .attr('cx', function (d) {
+                    return projection(d.geometry.coordinates)[0]
+                })
+                .attr('cy', function (d) {
+                    return projection(d.geometry.coordinates)[1]
+                })
+                .attr("class", "bubbles")
+                .call(d3.drag()
+                    .on("start", dragStart)
+                    .on("drag", dragged)
+                    .on("end", dragEnd));
+
+            function dragStart(d) {
+                d3.select(this).raise().classed("active", true);
+            }
+
+            function dragged(d) {
+                d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+            }
+
+            function dragEnd(d) {
+                d3.select(this).classed("active", false);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
