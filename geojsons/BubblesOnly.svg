@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1259"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="BubblesOnly.svg">
+  <defs
+     id="defs1253" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.061871843"
+     inkscape:cx="47.977732"
+     inkscape:cy="-758.66335"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="958"
+     inkscape:window-height="1008"
+     inkscape:window-x="953"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata1256">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <circle
+       id="ako"
+       cx="-911.34808"
+       cy="237.26271"
+       r="8.8194447"
+       style="display:inline;opacity:1;fill:#2ea34b;fill-opacity:1;stroke-width:0.05019195"
+       inkscape:label="Arabic (Kormakiti)" />
+    <circle
+       id="mlt"
+       cx="-896.8064"
+       cy="200.70589"
+       r="22.930555"
+       style="display:inline;opacity:1;fill:#56bd49;fill-opacity:1;stroke-width:0.13049906"
+       inkscape:label="Maltese" />
+    <circle
+       id="cri"
+       cx="-676.19373"
+       cy="-472.67966"
+       r="22.930555"
+       style="display:inline;fill:#be2c78;fill-opacity:1;stroke-width:0.13049906"
+       inkscape:label="Crimean Tatar" />
+    <circle
+       id="gag"
+       cx="-567.51593"
+       cy="-474.11703"
+       r="21.166666"
+       style="display:inline;fill:#da2b78;fill-opacity:1;stroke-width:0.12046067"
+       inkscape:label="Gagauz" />
+    <circle
+       id="krm"
+       cx="-669.84003"
+       cy="-418.53229"
+       r="7.0555553"
+       style="display:inline;fill:#a22d75;fill-opacity:1;stroke-width:0.04015356"
+       inkscape:label="Karaim" />
+    <circle
+       id="kym"
+       cx="-691.80334"
+       cy="-430.98322"
+       r="8.8194447"
+       style="display:inline;fill:#b02d76;fill-opacity:1;stroke-width:0.05019195"
+       inkscape:label="Krymchak" />
+    <circle
+       id="tur"
+       cx="-617.13831"
+       cy="-432.36545"
+       r="31.75"
+       style="display:inline;fill:#e72b77;fill-opacity:1;stroke-width:0.18069103"
+       inkscape:label="Turkish" />
+    <circle
+       id="urm"
+       cx="-623.14978"
+       cy="-492.40881"
+       r="21.166666"
+       style="display:inline;fill:#cc2b78;fill-opacity:1;stroke-width:0.12046069"
+       inkscape:label="Urum" />
+    <circle
+       id="bsq"
+       cx="757.88971"
+       cy="31.558794"
+       r="24.694445"
+       style="display:inline;fill:#fc3a9a;fill-opacity:1;stroke-width:0.14053747"
+       inkscape:label="Basque" />
+    <circle
+       id="alb"
+       cx="-58.436863"
+       cy="-276.61526"
+       r="28.222219"
+       style="display:inline;fill:#f33648;fill-opacity:1;stroke-width:0.16061425"
+       inkscape:label="Albanian" />
+    <circle
+       id="lat"
+       cx="-241.03244"
+       cy="-211.42848"
+       r="24.694445"
+       style="display:inline;fill:#70eea3;fill-opacity:1;stroke-width:0.14053749"
+       inkscape:label="Latvian" />
+    <circle
+       id="lit"
+       cx="-286.35538"
+       cy="-249.57726"
+       r="26.458334"
+       style="display:inline;fill:#a6f181;fill-opacity:1;stroke-width:0.15057588"
+       inkscape:label="Lithuanian" />
+    <circle
+       id="bre"
+       cx="-532.46539"
+       cy="-61.995407"
+       r="21.166666"
+       style="display:inline;fill:#f6935b;fill-opacity:1;stroke-width:0.1204607"
+       inkscape:label="Breton" />
+    <circle
+       id="crn"
+       cx="-530.33472"
+       cy="-15.218062"
+       r="10.583333"
+       style="display:inline;fill:#f58d5f;fill-opacity:1;stroke-width:0.06023035"
+       inkscape:label="Cornish" />
+    <circle
+       id="iri"
+       cx="-481.18875"
+       cy="-82.444107"
+       r="19.402779"
+       style="display:inline;fill:#f4a850;fill-opacity:1;stroke-width:0.11042231"
+       inkscape:label="Irish" />
+    <circle
+       id="mnx"
+       cx="-450.13837"
+       cy="-51.854874"
+       r="12.347222"
+       style="display:inline;fill:#f5a153;fill-opacity:1;stroke-width:0.07026874"
+       inkscape:label="Manx" />
+    <circle
+       id="wel"
+       cx="-492.94867"
+       cy="20.852739"
+       r="22.930555"
+       style="display:inline;fill:#f38763;fill-opacity:1;stroke-width:0.13049909"
+       inkscape:label="Welsh" />
+    <circle
+       id="gae"
+       cx="-487.16312"
+       cy="-30.779921"
+       r="19.402779"
+       style="display:inline;fill:#f69a57;fill-opacity:1;stroke-width:0.11042231"
+       inkscape:label="Gaelic (Scots)" />
+    <circle
+       id="alt"
+       cx="-530.16937"
+       cy="447.56808"
+       r="24.694445"
+       style="display:inline;fill:#e7c153;fill-opacity:1;stroke-width:0.14053749"
+       inkscape:label="Alsatian" />
+    <circle
+       id="dsh"
+       cx="-334.66617"
+       cy="363.92166"
+       r="28.222219"
+       style="display:inline;fill:#def874;fill-opacity:1;stroke-width:0.16061427"
+       inkscape:label="Danish" />
+    <circle
+       id="dut"
+       cx="-502.76923"
+       cy="384.37686"
+       r="29.986115"
+       style="display:inline;fill:#e6cb57;fill-opacity:1;stroke-width:0.17065269"
+       inkscape:label="Dutch" />
+    <circle
+       id="eng"
+       cx="-381.11459"
+       cy="284.59494"
+       r="35.277779"
+       style="display:inline;fill:#74ca81;fill-opacity:1;stroke-width:0.20076784"
+       inkscape:label="English" />
+    <circle
+       id="far"
+       cx="-282.92593"
+       cy="319.25748"
+       r="19.402779"
+       style="display:inline;fill:#b7fa87;fill-opacity:1;stroke-width:0.11042231"
+       inkscape:label="Faroese" />
+    <circle
+       id="fri"
+       cx="-455.89627"
+       cy="340.16483"
+       r="22.930555"
+       style="display:inline;fill:#ddeb6a;fill-opacity:1;stroke-width:0.13049909"
+       inkscape:label="Frisian" />
+    <circle
+       id="ger"
+       cx="-460.43582"
+       cy="454.68045"
+       r="31.75"
+       style="display:inline;fill:#e4d65c;fill-opacity:1;stroke-width:0.18069106"
+       inkscape:label="German" />
+    <circle
+       id="ice"
+       cx="-270.58054"
+       cy="376.94705"
+       r="22.930555"
+       style="display:inline;fill:#52f1d3;fill-opacity:1;stroke-width:0.13049909"
+       inkscape:label="Icelandic" />
+    <circle
+       id="lge"
+       cx="-430.98587"
+       cy="390.37613"
+       r="28.222219"
+       style="display:inline;fill:#e1e062;fill-opacity:1;stroke-width:0.16061427"
+       inkscape:label="Low German" />
+    <circle
+       id="lux"
+       cx="-572.8714"
+       cy="402.02853"
+       r="22.930555"
+       style="display:inline;fill:#e7b751;fill-opacity:1;stroke-width:0.13049911"
+       inkscape:label="Luxemburgeois" />
+    <circle
+       id="nor"
+       cx="-235.53336"
+       cy="425.07938"
+       r="26.458334"
+       style="display:inline;fill:#6ef6ba;fill-opacity:1;stroke-width:0.15057589"
+       inkscape:label="Norwegian" />
+    <circle
+       id="swe"
+       cx="-307.56369"
+       cy="429.74869"
+       r="28.222219"
+       style="display:inline;fill:#91f9a0;fill-opacity:1;stroke-width:0.1606143"
+       inkscape:label="Swedish" />
+    <circle
+       id="ydd"
+       cx="-350.99307"
+       cy="498.96475"
+       r="24.694445"
+       style="display:inline;fill:#a9ae4c;fill-opacity:1;stroke-width:0.14053753"
+       inkscape:label="Yiddish" />
+    <circle
+       id="ydb"
+       cx="-395.59427"
+       cy="535.25043"
+       r="21.166666"
+       style="display:inline;fill:#b79940;fill-opacity:1;stroke-width:0.12046074"
+       inkscape:label="Yiddish (Bessarabian)" />
+    <circle
+       id="ylt"
+       cx="-335.87405"
+       cy="553.39325"
+       r="21.166666"
+       style="display:inline;fill:#bb8e3f;fill-opacity:1;stroke-width:0.12046074"
+       inkscape:label="Yiddish (Lithuanian)" />
+    <circle
+       id="ydl"
+       cx="-295.05264"
+       cy="519.37543"
+       r="21.166666"
+       style="display:inline;fill:#b1a344;fill-opacity:1;stroke-width:0.12046074"
+       inkscape:label="Yiddish (Lodz)" />
+    <circle
+       id="gcy"
+       cx="212.76608"
+       cy="-187.51097"
+       r="22.930555"
+       style="display:inline;fill:#4a7fbf;fill-opacity:1;stroke-width:0.13049914"
+       inkscape:label="Greek (Cypriot)" />
+    <circle
+       id="grk"
+       cx="263.56296"
+       cy="-231.08888"
+       r="28.222219"
+       style="display:inline;fill:#31a6ee;fill-opacity:1;stroke-width:0.16061434"
+       inkscape:label="Greek (Modern)" />
+    <circle
+       id="rav"
+       cx="284.7673"
+       cy="46.135635"
+       r="17.638889"
+       style="display:inline;fill:#ea7831;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (Ajia Varvara)" />
+    <circle
+       id="rbu"
+       cx="371.83432"
+       cy="99.311783"
+       r="17.638889"
+       style="display:inline;fill:#cf8412;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (Burgudzi)" />
+    <circle
+       id="rbg"
+       cx="352.79282"
+       cy="27.992876"
+       r="17.638889"
+       style="display:inline;fill:#f87f35;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (Burgenland)" />
+    <circle
+       id="rka"
+       cx="317.57895"
+       cy="79.932144"
+       r="17.638889"
+       style="display:inline;fill:#dd7e22;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (Kalderash)" />
+    <circle
+       id="rlo"
+       cx="405.34811"
+       cy="60.552505"
+       r="17.638889"
+       style="display:inline;fill:#f88c28;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (Lovari)" />
+    <circle
+       id="rnr"
+       cx="306.17563"
+       cy="-2.4129477"
+       r="17.638889"
+       style="display:inline;fill:#f57140;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (North Russian)" />
+    <circle
+       id="rse"
+       cx="365.58542"
+       cy="-25.091536"
+       r="17.638889"
+       style="display:inline;fill:#f1aa04;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (Sepecides)" />
+    <circle
+       id="rwe"
+       cx="426.67465"
+       cy="6.6584635"
+       r="17.638889"
+       style="display:inline;fill:#f69b1a;fill-opacity:1;stroke-width:0.10038397"
+       inkscape:label="Romani (Welsh)" />
+    <circle
+       id="ast"
+       cx="163.39438"
+       cy="469.62363"
+       r="22.930555"
+       style="display:inline;fill:#936083;fill-opacity:1;stroke-width:0.13049915"
+       inkscape:label="Asturian" />
+    <circle
+       id="fre"
+       cx="221.65891"
+       cy="555.94379"
+       r="31.75"
+       style="display:inline;fill:#a05159;fill-opacity:1;stroke-width:0.18069114"
+       inkscape:label="French" />
+    <circle
+       id="glc"
+       cx="151.17087"
+       cy="338.97092"
+       r="26.458334"
+       style="display:inline;fill:#e9787a;fill-opacity:1;stroke-width:0.15057595"
+       inkscape:label="Galician" />
+    <circle
+       id="ctl"
+       cx="152.79526"
+       cy="540.68585"
+       r="26.458334"
+       style="display:inline;fill:#7a5b7f;fill-opacity:1;stroke-width:0.15057595"
+       inkscape:label="Catalan" />
+    <circle
+       id="ita"
+       cx="155.82712"
+       cy="403.89383"
+       r="31.75"
+       style="display:inline;fill:#d77080;fill-opacity:1;stroke-width:0.18069114"
+       inkscape:label="Italian" />
+    <circle
+       id="ldn"
+       cx="218.44296"
+       cy="439.47726"
+       r="19.402779"
+       style="display:inline;fill:#ab6485;fill-opacity:1;stroke-width:0.11042237"
+       inkscape:label="Ladin" />
+    <circle
+       id="lno"
+       cx="224.26108"
+       cy="386.68985"
+       r="21.166666"
+       style="display:inline;fill:#c26984;fill-opacity:1;stroke-width:0.12046076"
+       inkscape:label="Ladino" />
+    <circle
+       id="mol"
+       cx="362.50217"
+       cy="423.02011"
+       r="26.458334"
+       style="display:inline;fill:#dd7369;fill-opacity:1;stroke-width:0.15057595"
+       inkscape:label="Moldavian" />
+    <circle
+       id="occ"
+       cx="309.56699"
+       cy="523.05219"
+       r="24.694445"
+       style="display:inline;fill:#af595e;fill-opacity:1;stroke-width:0.14053756"
+       inkscape:label="Occitan" />
+    <circle
+       id="por"
+       cx="117.11227"
+       cy="632.58539"
+       r="33.513889"
+       style="display:inline;fill:#8e4d63;fill-opacity:1;stroke-width:0.19072954"
+       inkscape:label="Portuguese" />
+    <circle
+       id="pro"
+       cx="250.21518"
+       cy="608.71735"
+       r="22.930555"
+       style="display:inline;fill:#904954;fill-opacity:1;stroke-width:0.13049915"
+       inkscape:label="Provencal" />
+    <circle
+       id="rom"
+       cx="383.18552"
+       cy="498.28915"
+       r="29.986115"
+       style="display:inline;fill:#ce6a65;fill-opacity:1;stroke-width:0.17065275"
+       inkscape:label="Romanian" />
+    <circle
+       id="rmc"
+       cx="298.52939"
+       cy="448.39633"
+       r="19.402779"
+       style="display:inline;fill:#eb797e;fill-opacity:1;stroke-width:0.11042236"
+       inkscape:label="Romansch" />
+    <circle
+       id="srd"
+       cx="359.08542"
+       cy="577.56586"
+       r="24.694445"
+       style="display:inline;fill:#bf6162;fill-opacity:1;stroke-width:0.14053755"
+       inkscape:label="Sardinian" />
+    <circle
+       id="spa"
+       cx="71.527374"
+       cy="550.60187"
+       r="35.277779"
+       style="display:inline;fill:#865372;fill-opacity:1;stroke-width:0.20076792"
+       inkscape:label="Spanish" />
+    <circle
+       id="blr"
+       cx="-88.849823"
+       cy="47.868057"
+       r="26.458334"
+       style="display:inline;fill:#8e97c8;fill-opacity:1;stroke-width:0.15057594"
+       inkscape:label="Belorussian" />
+    <circle
+       id="bos"
+       cx="-98.417816"
+       cy="111.6053"
+       r="26.458334"
+       style="display:inline;fill:#ae97cc;fill-opacity:1;stroke-width:0.15057594"
+       inkscape:label="Bosnian" />
+    <circle
+       id="bul"
+       cx="-37.941807"
+       cy="96.486221"
+       r="28.222219"
+       style="display:inline;fill:#969fd2;fill-opacity:1;stroke-width:0.16061434"
+       inkscape:label="Bulgarian" />
+    <circle
+       id="cze"
+       cx="-149.82266"
+       cy="8.7957315"
+       r="28.222219"
+       style="display:inline;fill:#5093b2;fill-opacity:1;stroke-width:0.16061436"
+       inkscape:label="Czech" />
+    <circle
+       id="ksu"
+       cx="-149.82266"
+       cy="76.831436"
+       r="21.166666"
+       style="display:inline;fill:#6e96bf;fill-opacity:1;stroke-width:0.12046078"
+       inkscape:label="Kashubian" />
+    <circle
+       id="mcd"
+       cx="-6.1918063"
+       cy="14.843278"
+       r="26.458334"
+       style="display:inline;fill:#7eafde;fill-opacity:1;stroke-width:0.150576"
+       inkscape:label="Macedonian" />
+    <circle
+       id="pol"
+       cx="36.141628"
+       cy="78.343338"
+       r="31.75"
+       style="display:inline;fill:#9db1e7;fill-opacity:1;stroke-width:0.1806912"
+       inkscape:label="Polish" />
+    <circle
+       id="rus"
+       cx="63.355862"
+       cy="11.819474"
+       r="33.513889"
+       style="display:inline;fill:#a3baf3;fill-opacity:1;stroke-width:0.1907296"
+       inkscape:label="Russian" />
+    <circle
+       id="scr"
+       cx="-74.22757"
+       cy="-19.930494"
+       r="29.986115"
+       style="display:inline;fill:#7ca6d4;fill-opacity:1;stroke-width:0.17065281"
+       inkscape:label="Serbo-Croatian" />
+    <circle
+       id="svk"
+       cx="-9.2155495"
+       cy="-47.144852"
+       r="26.458334"
+       style="display:inline;fill:#60add1;fill-opacity:1;stroke-width:0.150576"
+       inkscape:label="Slovak" />
+    <circle
+       id="slo"
+       cx="51.260647"
+       cy="-66.799515"
+       r="26.458334"
+       style="display:inline;fill:#6acbf2;fill-opacity:1;stroke-width:0.150576"
+       inkscape:label="Slovene" />
+    <circle
+       id="srb"
+       cx="110.22495"
+       cy="-39.585281"
+       r="19.402779"
+       style="display:inline;fill:#87c3f5;fill-opacity:1;stroke-width:0.1104224"
+       inkscape:label="Sorbian" />
+    <circle
+       id="ukr"
+       cx="107.20102"
+       cy="70.783829"
+       r="31.75"
+       style="display:inline;fill:#bcb1ed;fill-opacity:1;stroke-width:0.1806912"
+       inkscape:label="Ukrainian" />
+    <circle
+       id="ash"
+       cx="-844.24597"
+       cy="-132.90746"
+       r="22.930555"
+       style="display:inline;fill:#956e2d;fill-opacity:1;stroke-width:0.1304992"
+       inkscape:label="Adyghe (Shapsugh)" />
+    <circle
+       id="est"
+       cx="667.44891"
+       cy="-428.30753"
+       r="24.694445"
+       style="display:inline;fill:#f05c8b;fill-opacity:1;stroke-width:0.14053762"
+       inkscape:label="Estonian" />
+    <circle
+       id="fin"
+       cx="727.16913"
+       cy="-418.48019"
+       r="28.222219"
+       style="display:inline;fill:#ec5f98;fill-opacity:1;stroke-width:0.16061442"
+       inkscape:label="Finnish" />
+    <circle
+       id="krl"
+       cx="682.56781"
+       cy="-377.65863"
+       r="17.638889"
+       style="display:inline;fill:#f05c8b;fill-opacity:1;stroke-width:0.10038402"
+       inkscape:label="Karelian" />
+    <circle
+       id="liv"
+       cx="724.90131"
+       cy="-370.85504"
+       r="7.0555553"
+       style="display:inline;fill:#ef5f55;fill-opacity:1;stroke-width:0.04015361"
+       inkscape:label="Liv" />
+    <circle
+       id="vep"
+       cx="634.18707"
+       cy="-390.50992"
+       r="12.347222"
+       style="display:inline;fill:#f35a7d;fill-opacity:1;stroke-width:0.07026882"
+       inkscape:label="Veps" />
+    <circle
+       id="vot"
+       cx="646.28217"
+       cy="-360.27179"
+       r="7.0555553"
+       style="display:inline;fill:#f25c62;fill-opacity:1;stroke-width:0.04015361"
+       inkscape:label="Votic" />
+    <circle
+       id="scs"
+       cx="709.19342"
+       cy="-242.14607"
+       r="10.583333"
+       style="display:inline;fill:#a93d59;fill-opacity:1;stroke-width:0.06023042"
+       inkscape:label="Saami (Central-South)" />
+    <circle
+       id="ski"
+       cx="728.09235"
+       cy="-268.60443"
+       r="12.347222"
+       style="display:inline;fill:#bc4456;fill-opacity:1;stroke-width:0.07026882"
+       inkscape:label="Saami (Kildin)" />
+    <circle
+       id="sno"
+       cx="739.43158"
+       cy="-232.31877"
+       r="17.638889"
+       style="display:inline;fill:#b34058;fill-opacity:1;stroke-width:0.10038403"
+       inkscape:label="Saami (Northern)" />
+    <circle
+       id="hun"
+       cx="592.92499"
+       cy="-261.31192"
+       r="28.222219"
+       style="display:inline;fill:#e1526d;fill-opacity:1;stroke-width:0.16061445"
+       inkscape:label="Hungarian" />
+  </g>
+</svg>

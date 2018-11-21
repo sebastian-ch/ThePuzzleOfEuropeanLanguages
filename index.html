@@ -9,7 +9,6 @@
             padding: 0;
             margin: 0;
             background: whitesmoke;
-
         }
 
         .bubbles {
@@ -39,10 +38,11 @@
         }
 
         #map {
-            width: 80%;
+            width: 90%;
             margin: 10px auto 10px auto;
             border: 1px solid #d3d3d3;
             text-align: center;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -51,25 +51,18 @@
 
     <h1>woooooo</h1>
 
+
     <div id="map"></div>
+
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 
     <script>
-        var margin = {
-                top: 10,
-                left: 10,
-                bottom: 10,
-                right: 10
-            },
-
-            width = parseInt(d3.select('#map').style('width')),
-            width = width - margin.left - margin.right,
-            mapRatio = .5,
-            //height = width * mapRatio;
+        width = parseInt(d3.select('#map').style('width')),
             height = 800;
 
+        console.log(width)
         var svg = d3.select("#map")
             .append("svg")
             .attr("width", width)
@@ -83,6 +76,8 @@
         files.forEach(function (url) {
             promises.push(d3.json(url))
         });
+
+
 
         Promise.all(promises).then(function (values) {
             makeMap(values[0], values[1])
@@ -99,8 +94,7 @@
 
             console.log(europe);
 
-            //projection.fitSize([width - 500, height + 20], europe);
-            projection.fitSize([width - 50, height + 20], europe);
+            projection.fitSize([width - 900, height], europe);
 
             svg.append("g")
                 .selectAll("path")
@@ -116,8 +110,6 @@
         }
 
         function addBubbles(languages) {
-
-            console.log(languages)
 
             var bubbles = svg.selectAll("circle")
                 .data(languages.features)
@@ -143,11 +135,14 @@
                 });
 
             function dragStart(d) {
-                d3.select(this).raise().classed("active", true);
+                d3.select(this).classed("active", true)
+
             }
 
             function dragged(d) {
-                d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+                d3.select(this)
+                    .attr("cx", d3.event.x)
+                    .attr("cy", d3.event.y);
             }
 
             function dragEnd(d) {
@@ -162,7 +157,6 @@
                         return projection(d.geometry.coordinates)[1]
 
                     })
-
             }
         }
     </script>
