@@ -11,13 +11,13 @@
             background: whitesmoke;
         }
 
-        .bubbles {
+        .languages {
             fill-opacity: 0.5;
             fill: black;
             stroke: white;
         }
 
-        .bubbles:hover {
+        .languages:hover {
             fill: yellow;
 
         }
@@ -37,7 +37,7 @@
             color: #005DAA;
         }
 
-        #map {
+        #container {
             width: 90%;
             margin: 10px auto 10px auto;
             border: 1px solid #d3d3d3;
@@ -52,24 +52,23 @@
     <h1>woooooo</h1>
 
 
-    <div id="map"></div>
-
+    <div id="container"></div>
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 
     <script>
-        width = parseInt(d3.select('#map').style('width')),
+        width = parseInt(d3.select('#container').style('width')),
             height = 800;
 
-        console.log(width)
-        var svg = d3.select("#map")
+        //console.log(width)
+        var svg = d3.select("#container")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
 
         //var files = ["/geojsons/states.geojson", "/geojsons/us-counties-topo.json"];
-        var files = ["geojsons/europe.geojson", "geojsons/languages.geojson"];
+        var files = ["geojsons/europeWrussia.geojson", "geojsons/languages.geojson"];
         var promises = [];
 
 
@@ -77,16 +76,16 @@
             promises.push(d3.json(url))
         });
 
-
-
+        circleSide();
         Promise.all(promises).then(function (values) {
             makeMap(values[0], values[1])
+
         });
+
 
         var projection = d3.geoMercator();
         var geoPath = d3.geoPath()
             .projection(projection);
-
 
         var radius = d3.scaleLog();
 
@@ -94,7 +93,7 @@
 
             console.log(europe);
 
-            projection.fitSize([width - 900, height], europe);
+            projection.fitSize([width - 300, height], europe);
 
             svg.append("g")
                 .selectAll("path")
@@ -123,7 +122,7 @@
                 .attr('cy', function (d) {
                     return projection(d.geometry.coordinates)[1]
                 })
-                .attr("class", "bubbles")
+                .attr("class", "languages")
                 .call(d3.drag()
                     .on("start", dragStart)
                     .on("drag", dragged)
@@ -143,6 +142,7 @@
                 d3.select(this)
                     .attr("cx", d3.event.x)
                     .attr("cy", d3.event.y);
+
             }
 
             function dragEnd(d) {
@@ -155,10 +155,59 @@
                     })
                     .attr('cy', function (d) {
                         return projection(d.geometry.coordinates)[1]
-
                     })
+                console.log(d)       
             }
+            
         }
+
+        function circleSide() {
+            var jsonCircles = [{
+                    "x_axis": 800,
+                    "y_axis": 30,
+                    "radius": 20,
+                    "color": "green"
+                },
+                {
+                    "x_axis": 700,
+                    "y_axis": 70,
+                    "radius": 20,
+                    "color": "purple"
+                },
+                {
+                    "x_axis": 660,
+                    "y_axis": 100,
+                    "radius": 20,
+                    "color": "red"
+                }
+            ];
+
+            var circles = svg.selectAll("circle")
+                .data(jsonCircles)
+                .enter()
+                .append("circle")
+                .attr("class", "circles");
+
+
+            var circleAttributes = circles
+                .attr("cx", function (d) {
+                    return d.x_axis;
+                })
+                .attr("cy", function (d) {
+                    return d.y_axis;
+                })
+                .attr("r", function (d) {
+                    return d.radius;
+                })
+                .style("fill", function (d) {
+                    return d.color;
+                });
+
+            console.log(circles);
+        }
+
+
+        
     </script>
 </body>
 
