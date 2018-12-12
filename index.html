@@ -12,9 +12,10 @@
         }
 
         .languages {
-            fill-opacity: 0.5;
-            fill: black;
+            /* fill-opacity: 0.8; 
+            fill: whitesmoke;
             stroke: white;
+            stroke-opacity: 0; */
         }
 
         .languages:hover {
@@ -40,8 +41,17 @@
         #container {
             width: 90%;
             margin: 10px auto 10px auto;
-            border: 1px solid #d3d3d3;
+           /* border: 1px solid #d3d3d3; */
             text-align: center;
+            overflow: hidden;
+        }
+
+        #bubble-container {
+            width: 90%;
+            margin: 10px auto 10px auto;
+            /*border: 1px solid #d3d3d3; */
+            text-align: center;
+            height: 600px;
             overflow: hidden;
         }
     </style>
@@ -52,7 +62,8 @@
     <h1>woooooo</h1>
 
 
-    <div id="container"></div>
+    <div id="container">
+    </div>
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
@@ -76,7 +87,7 @@
             promises.push(d3.json(url))
         });
 
-        circleSide();
+
         Promise.all(promises).then(function (values) {
             makeMap(values[0], values[1])
 
@@ -91,7 +102,7 @@
 
         function makeMap(europe, languages) {
 
-            console.log(europe);
+            //console.log(europe);
 
             projection.fitSize([width - 300, height], europe);
 
@@ -101,14 +112,39 @@
                 .enter()
                 .append("path")
                 .attr("d", geoPath)
-                .attr("stroke", "rgba(8, 81, 156, 0.2)")
-                .attr("fill", "lightgrey")
+                .attr("stroke", "black")
+                .attr("fill", "whitesmoke")
                 .attr("class", "europe");
 
             addBubbles(languages)
         }
 
         function addBubbles(languages) {
+
+
+            var radialGradient = svg.append("defs")
+                .append("radialGradient")
+                .attr("id", "radial-gradient");
+
+            radialGradient.append("stop")
+                .attr("offset", "0%")
+                .attr("stop-color", "darkgray");
+
+            radialGradient.append("stop")
+                .attr("offset", "20%")
+                .attr("stop-color", "darkgray");
+                
+            radialGradient.append("stop")
+                .attr("offset", "40%")
+                .attr("stop-color", "gray");
+
+            radialGradient.append("stop")
+                .attr("offset", "60%")
+                .attr("stop-color", "gray");
+
+            radialGradient.append("stop")
+                .attr("offset", "100%")
+                .attr("stop-color", "whitesmoke");
 
             var bubbles = svg.selectAll("circle")
                 .data(languages.features)
@@ -122,16 +158,14 @@
                 .attr('cy', function (d) {
                     return projection(d.geometry.coordinates)[1]
                 })
+                .attr('fill', 'url(#radial-gradient)')
                 .attr("class", "languages")
+               
                 .call(d3.drag()
                     .on("start", dragStart)
                     .on("drag", dragged)
                     .on("end", dragEnd));
 
-            bubbles.append("svg:title")
-                .text(function (d) {
-                    return d.properties.Name;
-                });
 
             function dragStart(d) {
                 d3.select(this).classed("active", true)
@@ -156,58 +190,10 @@
                     .attr('cy', function (d) {
                         return projection(d.geometry.coordinates)[1]
                     })
-                console.log(d)       
+                //console.log(d)       
             }
-            
+
         }
-
-        function circleSide() {
-            var jsonCircles = [{
-                    "x_axis": 800,
-                    "y_axis": 30,
-                    "radius": 20,
-                    "color": "green"
-                },
-                {
-                    "x_axis": 700,
-                    "y_axis": 70,
-                    "radius": 20,
-                    "color": "purple"
-                },
-                {
-                    "x_axis": 660,
-                    "y_axis": 100,
-                    "radius": 20,
-                    "color": "red"
-                }
-            ];
-
-            var circles = svg.selectAll("circle")
-                .data(jsonCircles)
-                .enter()
-                .append("circle")
-                .attr("class", "circles");
-
-
-            var circleAttributes = circles
-                .attr("cx", function (d) {
-                    return d.x_axis;
-                })
-                .attr("cy", function (d) {
-                    return d.y_axis;
-                })
-                .attr("r", function (d) {
-                    return d.radius;
-                })
-                .style("fill", function (d) {
-                    return d.color;
-                });
-
-            console.log(circles);
-        }
-
-
-        
     </script>
 </body>
 
