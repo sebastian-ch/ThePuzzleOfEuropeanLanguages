@@ -41,7 +41,7 @@
         #container {
             width: 90%;
             margin: 10px auto 10px auto;
-           /* border: 1px solid #d3d3d3; */
+            /* border: 1px solid #d3d3d3; */
             text-align: center;
             overflow: hidden;
         }
@@ -60,8 +60,6 @@
 <body>
 
     <h1>woooooo</h1>
-
-
     <div id="container">
     </div>
 
@@ -72,13 +70,11 @@
         width = parseInt(d3.select('#container').style('width')),
             height = 800;
 
-        //console.log(width)
         var svg = d3.select("#container")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
 
-        //var files = ["/geojsons/states.geojson", "/geojsons/us-counties-topo.json"];
         var files = ["geojsons/europeWrussia.geojson", "geojsons/languages.geojson"];
         var promises = [];
 
@@ -93,7 +89,6 @@
 
         });
 
-
         var projection = d3.geoMercator();
         var geoPath = d3.geoPath()
             .projection(projection);
@@ -102,10 +97,7 @@
 
         function makeMap(europe, languages) {
 
-            //console.log(europe);
-
-            projection.fitSize([width - 300, height], europe);
-
+            projection.fitSize([width + 660, height], europe);
             svg.append("g")
                 .selectAll("path")
                 .data(europe.features)
@@ -121,6 +113,7 @@
 
         function addBubbles(languages) {
 
+            console.log(languages)
 
             var radialGradient = svg.append("defs")
                 .append("radialGradient")
@@ -133,7 +126,7 @@
             radialGradient.append("stop")
                 .attr("offset", "20%")
                 .attr("stop-color", "darkgray");
-                
+
             radialGradient.append("stop")
                 .attr("offset", "40%")
                 .attr("stop-color", "gray");
@@ -146,8 +139,47 @@
                 .attr("offset", "100%")
                 .attr("stop-color", "whitesmoke");
 
+            var aa = [
+                [-65.223, 45.675],
+                [-45.223, 55.675],
+                [-85.223, 55.675],
+                [-65.223, 55.675],
+                [-65.223, 65.675],
+            ];
+            var randoCircle = svg.selectAll("circle")
+                .data(aa).enter()
+                .append("circle")
+                .attr("cx", function (d) {
+                    console.log(projection(d))
+                    return projection(d)[0];
+                })
+                .attr("cy", function (d) {
+                    return projection(d)[1];
+                })
+                .attr("r", "8px")
+                .attr("fill", "red")
+                .attr("class", "different")
+                .call(d3.drag()
+                    .on("start", dragStart)
+                    .on("drag", dragged)
+                    .on("end", function (d) {
+                        d3.select(this)
+                            .classed("active", false)
+                            .transition()
+                            .duration(1500)
+                            .attr('cx', function (d) {
+                                return projection(d)[0]
+                            })
+                            .attr('cy', function (d) {
+                                return projection(d)[1]
+                            })
+                    }));
+
+
             var bubbles = svg.selectAll("circle")
-                .data(languages.features)
+                .data(languages.features, function (d) {
+                    return d;
+                })
                 .enter().append("circle")
                 .attr('r', function (d) {
                     return radius(d.properties.speakers) * 2
@@ -160,14 +192,16 @@
                 })
                 .attr('fill', 'url(#radial-gradient)')
                 .attr("class", "languages")
-               
+                .attr("id", function (d) {
+                    return d.properties.iso_code
+                })
                 .call(d3.drag()
                     .on("start", dragStart)
                     .on("drag", dragged)
                     .on("end", dragEnd));
 
-
             function dragStart(d) {
+                //console.log(d.properties.Name + " " + d.properties.speakers)
                 d3.select(this).classed("active", true)
 
             }
