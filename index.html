@@ -11,22 +11,23 @@
             background: whitesmoke;
         }
 
-        .languages {
-            /* fill-opacity: 0.8; 
+        /* .languages {
+            fill-opacity: 0.8; 
             fill: whitesmoke;
             stroke: white;
-            stroke-opacity: 0; */
-        }
+            stroke-opacity: 0;
+        } */
 
         .languages:hover {
             fill: yellow;
-
         }
 
         .active {
             stroke: #000;
             stroke-width: 2px;
         }
+
+      
 
         h1 {
             width: 90%;
@@ -46,21 +47,17 @@
             overflow: hidden;
         }
 
-        #bubble-container {
-            width: 90%;
-            margin: 10px auto 10px auto;
-            /*border: 1px solid #d3d3d3; */
-            text-align: center;
-            height: 600px;
-            overflow: hidden;
-        }
+       
     </style>
 </head>
 
 <body>
 
     <h1>woooooo</h1>
+    
     <div id="container">
+            <div id='click-label'>Spain</div>
+        
     </div>
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -75,7 +72,7 @@
             .attr("width", width)
             .attr("height", height);
 
-        var files = ["geojsons/europeWrussia.geojson", "geojsons/languages.geojson"];
+        var files = ["geojsons/europeWrussia.geojson", "geojsons/languages.geojson", "geojsons/newCoords2019.geojson"];
         var promises = [];
 
 
@@ -85,7 +82,7 @@
 
 
         Promise.all(promises).then(function (values) {
-            makeMap(values[0], values[1])
+            makeMap(values[0], values[1], values[2])
 
         });
 
@@ -95,7 +92,7 @@
 
         var radius = d3.scaleLog();
 
-        function makeMap(europe, languages) {
+        function makeMap(europe, languages, newCoords) {
 
             projection.fitSize([width + 660, height], europe);
             svg.append("g")
@@ -108,10 +105,10 @@
                 .attr("fill", "whitesmoke")
                 .attr("class", "europe");
 
-            addBubbles(languages)
+            addBubbles(languages, newCoords)
         }
 
-        function addBubbles(languages) {
+        function addBubbles(languages, newCoords) {
 
             console.log(languages)
 
@@ -146,7 +143,7 @@
                 [-65.223, 55.675],
                 [-65.223, 65.675],
             ];
-            var randoCircle = svg.selectAll("circle")
+          /*  var randoCircle = svg.selectAll("circle")
                 .data(aa).enter()
                 .append("circle")
                 .attr("cx", function (d) {
@@ -173,7 +170,23 @@
                             .attr('cy', function (d) {
                                 return projection(d)[1]
                             })
-                    }));
+                    })); */
+
+            var newCoordsPlzWork = svg.selectAll("circle")
+                    .data(newCoords.features, function(d){return d;}).enter().append("circle")
+                    .attr('r', function (d) {
+                        return radius(d.properties.speakers) * 2
+                    })
+                    .attr('cx', function (d) {
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr('cy', function (d) {
+                        return projection(d.geometry.coordinates)[1]
+                    })
+                    .attr('fill', function(d) {
+                        return d.properties.color
+                    })
+                  
 
 
             var bubbles = svg.selectAll("circle")
@@ -182,7 +195,7 @@
                 })
                 .enter().append("circle")
                 .attr('r', function (d) {
-                    return radius(d.properties.speakers) * 2
+                    return radius(d.properties.speakers) * 3
                 })
                 .attr('cx', function (d) {
                     return projection(d.geometry.coordinates)[0]
@@ -201,16 +214,14 @@
                     .on("end", dragEnd));
 
             function dragStart(d) {
-                //console.log(d.properties.Name + " " + d.properties.speakers)
+                console.log(d.properties.Name + " " + d.properties.speakers)
                 d3.select(this).classed("active", true)
-
             }
 
             function dragged(d) {
                 d3.select(this)
                     .attr("cx", d3.event.x)
                     .attr("cy", d3.event.y);
-
             }
 
             function dragEnd(d) {
@@ -226,7 +237,6 @@
                     })
                 //console.log(d)       
             }
-
         }
     </script>
 </body>
