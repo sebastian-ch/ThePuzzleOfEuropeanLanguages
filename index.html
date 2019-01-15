@@ -186,6 +186,10 @@
                     .attr('fill', function(d) {
                         return d.properties.color
                     })
+                    .call(d3.drag()
+                    .on("start", dragStart)
+                    .on("drag", dragged)
+                    .on("end", testDragEnd));
                   
 
 
@@ -236,6 +240,12 @@
                         return projection(d.geometry.coordinates)[1]
                     })
                 //console.log(d)       
+            }
+
+            function testDragEnd(d) {
+                d3.select(this)
+                    .classed("active", false)
+                    
             }
         }
     </script>
