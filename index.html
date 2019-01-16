@@ -27,7 +27,7 @@
             stroke-width: 2px;
         }
 
-      
+
 
         h1 {
             width: 90%;
@@ -46,18 +46,16 @@
             text-align: center;
             overflow: hidden;
         }
-
-       
     </style>
 </head>
 
 <body>
 
     <h1>woooooo</h1>
-    
+
     <div id="container">
-            <div id='click-label'>Spain</div>
-        
+        <div id='click-label'>Spain</div>
+
     </div>
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -110,7 +108,7 @@
 
         function addBubbles(languages, newCoords) {
 
-            console.log(languages)
+            //console.log(languages)
 
             var radialGradient = svg.append("defs")
                 .append("radialGradient")
@@ -143,54 +141,56 @@
                 [-65.223, 55.675],
                 [-65.223, 65.675],
             ];
-          /*  var randoCircle = svg.selectAll("circle")
-                .data(aa).enter()
-                .append("circle")
-                .attr("cx", function (d) {
-                    console.log(projection(d))
-                    return projection(d)[0];
+            /*  var randoCircle = svg.selectAll("circle")
+                  .data(aa).enter()
+                  .append("circle")
+                  .attr("cx", function (d) {
+                      console.log(projection(d))
+                      return projection(d)[0];
+                  })
+                  .attr("cy", function (d) {
+                      return projection(d)[1];
+                  })
+                  .attr("r", "8px")
+                  .attr("fill", "red")
+                  .attr("class", "different")
+                  .call(d3.drag()
+                      .on("start", dragStart)
+                      .on("drag", dragged)
+                      .on("end", function (d) {
+                          d3.select(this)
+                              .classed("active", false)
+                              .transition()
+                              .duration(1500)
+                              .attr('cx', function (d) {
+                                  return projection(d)[0]
+                              })
+                              .attr('cy', function (d) {
+                                  return projection(d)[1]
+                              })
+                      })); */
+
+            var newCoordsPlzWork = svg.selectAll("circle")
+                .data(newCoords.features, function (d) {
+                    return d;
+                }).enter().append("circle")
+                .attr('r', function (d) {
+                    return radius(d.properties.speakers) * 2
                 })
-                .attr("cy", function (d) {
-                    return projection(d)[1];
+                .attr('cx', function (d) {
+                    return projection(d.geometry.coordinates)[0]
                 })
-                .attr("r", "8px")
-                .attr("fill", "red")
-                .attr("class", "different")
+                .attr('cy', function (d) {
+                    return projection(d.geometry.coordinates)[1]
+                })
+                .attr('fill', function (d) {
+                    return d.properties.color
+                })
                 .call(d3.drag()
                     .on("start", dragStart)
                     .on("drag", dragged)
-                    .on("end", function (d) {
-                        d3.select(this)
-                            .classed("active", false)
-                            .transition()
-                            .duration(1500)
-                            .attr('cx', function (d) {
-                                return projection(d)[0]
-                            })
-                            .attr('cy', function (d) {
-                                return projection(d)[1]
-                            })
-                    })); */
-
-            var newCoordsPlzWork = svg.selectAll("circle")
-                    .data(newCoords.features, function(d){return d;}).enter().append("circle")
-                    .attr('r', function (d) {
-                        return radius(d.properties.speakers) * 2
-                    })
-                    .attr('cx', function (d) {
-                        return projection(d.geometry.coordinates)[0]
-                    })
-                    .attr('cy', function (d) {
-                        return projection(d.geometry.coordinates)[1]
-                    })
-                    .attr('fill', function(d) {
-                        return d.properties.color
-                    })
-                    .call(d3.drag()
-                    .on("start", dragStart)
-                    .on("drag", dragged)
                     .on("end", testDragEnd));
-                  
+
 
 
             var bubbles = svg.selectAll("circle")
@@ -218,7 +218,12 @@
                     .on("end", dragEnd));
 
             function dragStart(d) {
-                console.log(d.properties.Name + " " + d.properties.speakers)
+                console.log(d.properties.Name)
+                var x = d3.select(this).attr("cx");
+                var y = d3.select(this).attr("cy");
+
+                console.log("start: " + x + " " + y);
+                
                 d3.select(this).classed("active", true)
             }
 
@@ -244,9 +249,16 @@
 
             function testDragEnd(d) {
                 d3.select(this)
-                    .classed("active", false)
-                    
+                    .classed("active", false);
+                
+                var x = d3.select(this).attr("cx");
+                var y = d3.select(this).attr("cy");
+
+                console.log("x: " + x + " y: " + y);
+                
             }
+
+           
         }
     </script>
 </body>
