@@ -4,8 +4,11 @@
     <meta charset="utf-8">
     <title>D3 Template</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Muli|Raleway|Thasadith" rel="stylesheet">
+
     <style>
         body {
+            font-family: 'Raleway', sans-serif;
             padding: 0;
             margin: 0;
             background: whitesmoke;
@@ -27,8 +30,6 @@
             stroke-width: 2px;
         }
 
-
-
         h1 {
             width: 90%;
             margin: 10px auto 10px auto;
@@ -40,12 +41,33 @@
         }
 
         #container {
+            /*position: absolute; */
             width: 90%;
             margin: 10px auto 10px auto;
-            /* border: 1px solid #d3d3d3; */
+             border: 1px solid #d3d3d3;
             text-align: center;
             overflow: hidden;
         }
+
+        .middle-menu {
+            position: absolute;
+            top: 400px;
+            /*width: 90%; */
+           /* margin: 10px auto 10px auto; */
+           left: 40%;
+            text-align: center;
+            font-size: 25px;
+            z-index: 10;
+        }
+        .name:hover {
+            /*background-color: grey;
+            opacity: 0.9; */
+            cursor: pointer;
+            /*font-weight: bold; */
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+
     </style>
 </head>
 
@@ -53,8 +75,14 @@
 
     <h1>woooooo</h1>
 
+    <div class='middle-menu'>
+        <div class='name' id='Spanish'>	&#9665; spanish  &#9655;</div>
+        <div class='name' id='Norway'>	&#9665; norway    &#9655;</div>
+        <div class='name' id='Germany'>	&#9665; german   &#9655;</div>
+        <div class='name' id='Swedish'>	&#9665; swedish  &#9655;</div>
+    </div>
     <div id="container">
-        <div id='click-label'>Spain</div>
+        
 
     </div>
 
@@ -62,7 +90,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 
     <script>
-        width = parseInt(d3.select('#container').style('width')),
+        var width = parseInt(d3.select('#container').style('width')),
             height = 800;
 
         var svg = d3.select("#container")
@@ -110,7 +138,7 @@
 
             //console.log(languages)
 
-            var radialGradient = svg.append("defs")
+           /* var radialGradient = svg.append("defs")
                 .append("radialGradient")
                 .attr("id", "radial-gradient");
 
@@ -132,43 +160,7 @@
 
             radialGradient.append("stop")
                 .attr("offset", "100%")
-                .attr("stop-color", "whitesmoke");
-
-            var aa = [
-                [-65.223, 45.675],
-                [-45.223, 55.675],
-                [-85.223, 55.675],
-                [-65.223, 55.675],
-                [-65.223, 65.675],
-            ];
-            /*  var randoCircle = svg.selectAll("circle")
-                  .data(aa).enter()
-                  .append("circle")
-                  .attr("cx", function (d) {
-                      console.log(projection(d))
-                      return projection(d)[0];
-                  })
-                  .attr("cy", function (d) {
-                      return projection(d)[1];
-                  })
-                  .attr("r", "8px")
-                  .attr("fill", "red")
-                  .attr("class", "different")
-                  .call(d3.drag()
-                      .on("start", dragStart)
-                      .on("drag", dragged)
-                      .on("end", function (d) {
-                          d3.select(this)
-                              .classed("active", false)
-                              .transition()
-                              .duration(1500)
-                              .attr('cx', function (d) {
-                                  return projection(d)[0]
-                              })
-                              .attr('cy', function (d) {
-                                  return projection(d)[1]
-                              })
-                      })); */
+                .attr("stop-color", "whitesmoke"); */
 
             var newCoordsPlzWork = svg.selectAll("circle")
                 .data(newCoords.features, function (d) {
@@ -191,8 +183,6 @@
                     .on("drag", dragged)
                     .on("end", testDragEnd));
 
-
-
             var bubbles = svg.selectAll("circle")
                 .data(languages.features, function (d) {
                     return d;
@@ -207,7 +197,9 @@
                 .attr('cy', function (d) {
                     return projection(d.geometry.coordinates)[1]
                 })
-                .attr('fill', 'url(#radial-gradient)')
+                .attr('fill', 'none')
+                .attr('stroke', 'red')
+                .attr('stroke-width', 2)
                 .attr("class", "languages")
                 .attr("id", function (d) {
                     return d.properties.iso_code
