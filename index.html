@@ -11,7 +11,7 @@
             font-family: 'Raleway', sans-serif;
             padding: 0;
             margin: 0;
-            background: whitesmoke;
+            background: #323232ff;
         }
 
         /* .languages {
@@ -98,7 +98,7 @@
             .attr("width", width)
             .attr("height", height);
 
-        var files = ["geojsons/europeWrussia.geojson", "geojsons/languages.geojson", "geojsons/newCoords2019.geojson"];
+        var files = ["geojsons/europeWrussia.geojson", "geojsons/languages.geojson", "geojsons/newCoords3019.geojson"];
         var promises = [];
 
 
@@ -127,8 +127,8 @@
                 .enter()
                 .append("path")
                 .attr("d", geoPath)
-                .attr("stroke", "black")
-                .attr("fill", "whitesmoke")
+                //.attr("stroke", "whitesmoke")
+                .attr("fill", "black")
                 .attr("class", "europe");
 
             addBubbles(languages, newCoords)
@@ -170,10 +170,10 @@
                     return radius(d.properties.speakers) * 2
                 })
                 .attr('cx', function (d) {
-                    return projection(d.geometry.coordinates)[0]
+                    return d.geometry.coordinates[0]
                 })
                 .attr('cy', function (d) {
-                    return projection(d.geometry.coordinates)[1]
+                    return d.geometry.coordinates[1]
                 })
                 .attr('fill', function (d) {
                     return d.properties.color
