@@ -78,7 +78,8 @@ var width = parseInt(d3.select('#container').style('width')),
                 .attr('cy', function (d) {
                     return projection(d.geometry.coordinates)[1]
                 })
-                .attr('fill', 'none')
+                .attr('fill', 'black')
+                .attr('fillOpacity', 0)
                 .attr('stroke', 'red')
                 .attr('stroke-width', 2)
                 .attr("class", "languages")
