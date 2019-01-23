@@ -50,14 +50,15 @@ var width = parseInt(d3.select('#container').style('width')),
                     return radius(d.properties.speakers) * 2
                 })
                 .attr('cx', function (d) {
-                    return d.geometry.coordinates[0]
+                    return d.geometry.coordinates[0]  //don't project bubble chart circles
                 })
                 .attr('cy', function (d) {
-                    return d.geometry.coordinates[1]
+                    return d.geometry.coordinates[1] //don't project bubble chart circles
                 })
-                .attr('fill', function (d) {
+                .attr('stroke', function (d) {
                     return d.properties.color
                 })
+                .attr('fill', '#323232ff')
                 .call(d3.drag()
                     .on("start", dragStart)
                     .on("drag", dragged)
@@ -69,7 +70,7 @@ var width = parseInt(d3.select('#container').style('width')),
                 })
                 .enter().append("circle")
                 .attr('r', function (d) {
-                    return radius(d.properties.speakers) * 3
+                    return radius(d.properties.speakers) * 2
                 })
                 .attr('cx', function (d) {
                     return projection(d.geometry.coordinates)[0]
@@ -94,8 +95,7 @@ var width = parseInt(d3.select('#container').style('width')),
                 var x = d3.select(this).attr("cx");
                 var y = d3.select(this).attr("cy");
 
-                console.log("start: " + x + " " + y);
-                
+                //console.log("start: " + x + " " + y);
                 d3.select(this).classed("active", true)
             }
 
