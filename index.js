@@ -6,28 +6,26 @@ var width = parseInt(d3.select('#container').style('width')),
             .attr("width", width)
             .attr("height", height);
 
-        var files = ["geojsons/europeWrussia.geojson", "geojsons/languages.geojson", "geojsons/newcoords3019.geojson"];
+        var files = ["geojsons/europeWrussia.geojson", "geojsons/mapBubbles.geojson", "geojsons/bubbleChart.geojson"];
         var promises = [];
-
 
         files.forEach(function (url) {
             promises.push(d3.json(url))
         });
 
-
         Promise.all(promises).then(function (values) {
             makeMap(values[0], values[1], values[2])
-
         });
 
         var projection = d3.geoMercator();
-        var geoPath = d3.geoPath()
-            .projection(projection);
+        var geoPath = d3.geoPath().projection(projection);
 
-        var radius = d3.scaleLog();
+        var radius = d3.scaleLog(); //function to scale the bubble chart circles
 
         function makeMap(europe, languages, newCoords) {
 
+
+            //add map to right side of the page
             projection.fitSize([width + 660, height], europe);
             svg.append("g")
                 .selectAll("path")
@@ -44,7 +42,7 @@ var width = parseInt(d3.select('#container').style('width')),
 
         function addBubbles(languages, newCoords) {
 
-            var newCoordsPlzWork = svg.selectAll("circle")
+            var bubbleChartCircles = svg.selectAll("circle")
                 .data(newCoords.features, function (d) {
                     return d;
                 }).enter().append("circle")
@@ -65,7 +63,7 @@ var width = parseInt(d3.select('#container').style('width')),
                     .on("drag", dragged)
                     .on("end", leftDragEnd));
 
-            var bubbles = svg.selectAll("circle")
+            var mapBubbles = svg.selectAll("circle")
                 .data(languages.features, function (d) {
                     return d;
                 })
@@ -134,6 +132,4 @@ var width = parseInt(d3.select('#container').style('width')),
                     })
                 
             }
-
-           
         }
