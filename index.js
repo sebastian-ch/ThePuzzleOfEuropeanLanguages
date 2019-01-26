@@ -1,5 +1,5 @@
 var width = parseInt(d3.select('#container').style('width')),
-    height = 800;
+    height = 700;
 
 var svg = d3.select("#container")
     .append("svg")
@@ -45,6 +45,7 @@ function addBubbles(languages, newCoords) {
     //console.log(languages)
      for (var b in languages.features) {
         languages.features[b].properties.coords = [languages.features[b].properties.x, languages.features[b].properties.y]
+        languages.features[b].properties.bubbley = languages.features[b].properties.bubbley - 100;
      }
 
      //console.log(languages.features)
