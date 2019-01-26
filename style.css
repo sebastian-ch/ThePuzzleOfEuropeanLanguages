@@ -1,0 +1,56 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    padding: 0;
+    margin: 0;
+    background: #323232ff;
+
+}
+
+.active {
+    stroke: yellow;
+    stroke-width: 2px;
+}
+
+h1 {
+    width: 90%;
+    margin: 10px auto 10px auto;
+    left: 20px;
+    top: 10px;
+    font-size: 2em;
+    font-weight: 100;
+    color: #005DAA;
+}
+
+h2, h3 {
+    width: 90%;
+    margin: 10px auto 10px auto;
+}
+
+#container {
+    /*position: absolute; */
+    width: 90%;
+    margin: 10px auto 10px auto;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    overflow: hidden;
+}
+
+.middle-menu {
+    color: whitesmoke;
+    position: absolute;
+    top: 400px;
+    /*width: 90%; */
+    /* margin: 10px auto 10px auto; */
+    left: 40%;
+    text-align: center;
+    font-size: 25px;
+    z-index: 10;
+}
+
+.name:hover {
+    /*background-color: grey;
+    opacity: 0.9; */
+    cursor: pointer;
+    /*font-weight: bold; */
+    color: rgba(0, 0, 0, 0.5);
+}

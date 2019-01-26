@@ -6,7 +6,8 @@ var svg = d3.select("#container")
     .attr("width", width)
     .attr("height", height);
 
-var files = ["geojsons/europeWrussia.geojson", "geojsons/mapBubbles.geojson", "geojsons/bubbleChart.geojson"];
+//var files = ["geojsons/europeWrussia.geojson", "geojsons/mapBubbles.geojson", "geojsons/bubbleChart.geojson"];
+var files = ["geojsons/europeWrussia.geojson", "geojsons/movingBubbles26-1.geojson", "geojsons/bubbleChart.geojson"];
 var promises = [];
 
 files.forEach(function (url) {
@@ -21,6 +22,7 @@ var projection = d3.geoMercator();
 var geoPath = d3.geoPath().projection(projection);
 
 var radius = d3.scaleLog(); //function to scale the bubble chart circles
+
 
 function makeMap(europe, languages, newCoords) {
 
@@ -40,8 +42,13 @@ function makeMap(europe, languages, newCoords) {
 }
 
 function addBubbles(languages, newCoords) {
+    //console.log(languages)
+     for (var b in languages.features) {
+        languages.features[b].properties.coords = [languages.features[b].properties.x, languages.features[b].properties.y]
+     }
 
-    var bubbleChartCircles = svg.selectAll("circle")
+     //console.log(languages.features)
+    /*var bubbleChartCircles = svg.selectAll("circle")
         .data(newCoords.features, function (d) {
             return d;
         }).enter().append("circle")
@@ -79,7 +86,7 @@ function addBubbles(languages, newCoords) {
         .call(d3.drag()
             .on("start", dragStart)
             .on("drag", dragged)
-            .on("end", leftDragEnd));
+            .on("end", leftDragEnd)); */
 
     var mapBubbles = svg.selectAll("circle")
         .data(languages.features, function (d) {
@@ -189,7 +196,6 @@ function addBubbles(languages, newCoords) {
                     return d.geometry.coordinates[1]
                 })
         }
-
     }
 
     var tooltip = svg.append("g")
@@ -197,21 +203,53 @@ function addBubbles(languages, newCoords) {
         .style("display", "none");
 
     tooltip.append("rect")
-        .attr("width", '100%')
+        .attr("width", 150)
         .attr("height", 20)
         .attr("fill", "white")
         .style("opacity", 0.5);
 
     tooltip.append("text")
-        .attr("x", 15)
-        .attr("dy", "1.2em")
-        //.style("text-anchor", "left")
-        .attr("font-size", "16px")
+        .attr("x", 1)
+        .attr("dy", "1.0em")
+        .style("text-align", "center")
+        .attr("font-size", "15px")
         .attr("font-weight", "bold");
 
+}
 
+function updateData() {
 
+    d3.select('.map').each(function(d){
+        
+    })
 
+    if (d3.select('.map').classed('leftside')) {
+        
+        d3.selectAll('.map')
+            .classed('leftside', false)
+            .transition()
+            .duration(1500)
+            .attr('cx', function (d) {
+              
+                return d.properties.coords[0];
+                
+            })
+            .attr('cy', function (d) {
+             
+                return d.properties.coords[1];
+                
+            })
+    } else {
 
-
+        d3.selectAll('.map')
+            .classed('leftside', true)
+            .transition()
+            .duration(1500)
+            .attr('cx', function (d) {
+                return d.properties.bubblex
+            })
+            .attr('cy', function (d) {
+                return d.properties.bubbley
+            })
+    }
 }

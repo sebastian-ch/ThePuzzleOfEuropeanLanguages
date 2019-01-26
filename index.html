@@ -2,79 +2,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="favicon.png">
+   
     <title>🔴</title>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Muli|Raleway|Thasadith" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Raleway', sans-serif;
-            padding: 0;
-            margin: 0;
-            background: #323232ff;
-           
-        }
-
-        .active {
-            stroke: yellow;
-            stroke-width: 2px;
-        }
-
-        h1 {
-            width: 90%;
-            margin: 10px auto 10px auto;
-            left: 20px;
-            top: 10px;
-            font-size: 2em;
-            font-weight: 100;
-            color: #005DAA;
-        }
-
-        #container {
-            /*position: absolute; */
-            width: 90%;
-            margin: 10px auto 10px auto;
-             border: 1px solid #d3d3d3;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .middle-menu {
-            color: whitesmoke;
-            position: absolute;
-            top: 400px;
-            /*width: 90%; */
-           /* margin: 10px auto 10px auto; */
-           left: 40%;
-            text-align: center;
-            font-size: 25px;
-            z-index: 10;
-        }
-        .name:hover {
-            /*background-color: grey;
-            opacity: 0.9; */
-            cursor: pointer;
-            /*font-weight: bold; */
-            color: rgba(0, 0, 0, 0.5);
-        }
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
 
-    <h1>woooooo 👏</h1>
+    <h1>👏👏👏👏</h1>
+    <h2>👏👏👏👏</h2>
+    <h3>👏👏👏👏</h3>
 
     <div class='middle-menu'>
-        <div class='name' id='Spanish'>	&#9665; spanish  &#9655;</div>
-        <div class='name' id='Norway'>	&#9665; norway    &#9655;</div>
-        <div class='name' id='Germany'>	&#9665; german   &#9655;</div>
-        <div class='name' id='Swedish'>	&#9665; swedish  &#9655;</div>
+        <div class='name' id='Switch'><input name="updateButton" type="button" value="Switch!" onclick="updateData()" /></div>
+        <div class='name' id='Spanish'> &#9665; spanish &#9655;</div>
+        <div class='name' id='Norway'> &#9665; norway &#9655;</div>
+        <div class='name' id='Germany'> &#9665; german &#9655;</div>
+        <div class='name' id='Swedish'> &#9665; swedish &#9655;</div>
     </div>
     <div id="container">
-        
+
     </div>
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
