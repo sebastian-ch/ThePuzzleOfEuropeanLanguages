@@ -230,14 +230,11 @@ function updateData() {
             .transition()
             .duration(1500)
             .attr('cx', function (d) {
-              
-                return d.properties.coords[0];
+                return projection(d.properties.coords)[0];
                 
             })
             .attr('cy', function (d) {
-             
-                return d.properties.coords[1];
-                
+                return projection(d.properties.coords)[1];
             })
     } else {
 
