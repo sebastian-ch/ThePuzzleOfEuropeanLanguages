@@ -236,6 +236,7 @@ function updateData() {
             .attr('cy', function (d) {
                 return projection(d.properties.coords)[1];
             })
+            .attr('stroke', 'red')
     } else {
 
         d3.selectAll('.map')
@@ -247,6 +248,9 @@ function updateData() {
             })
             .attr('cy', function (d) {
                 return d.properties.bubbley
+            })
+            .attr('stroke', function (d) {
+                return d.properties.color
             })
     }
 }
