@@ -7,7 +7,7 @@ var svg = d3.select("#container")
     .attr("height", height);
 
 //var files = ["geojsons/europeWrussia.geojson", "geojsons/mapBubbles.geojson", "geojsons/bubbleChart.geojson"];
-var files = ["geojsons/europeWrussia.geojson", "geojsons/movingBubbles26-1.geojson", "geojsons/bubbleChart.geojson"];
+var files = ["geojsons/europeWrussia2.geojson", "geojsons/movingBubbles26-1.geojson", "geojsons/bubbleChart.geojson"];
 var promises = [];
 
 files.forEach(function (url) {
