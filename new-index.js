@@ -6,8 +6,15 @@ var svg = d3.select("#container")
     .attr("width", width)
     .attr("height", height);
 
-//var files = ["geojsons/europeWrussia.geojson", "geojsons/mapBubbles.geojson", "geojsons/bubbleChart.geojson"];
-var files = ["geojsons/europeWrussia2.geojson", "geojsons/movingBubbles26-1.geojson", "geojsons/bubbleChart.geojson"];
+var files = [
+    
+    "geojsons/europeWrussia2.geojson",
+    "geojsons/bubbleChart.geojson",
+    "geojsons/mapBubbles.geojson",
+    "geojsons/movingBubbles26-1.geojson",
+
+];
+
 var promises = [];
 
 files.forEach(function (url) {
@@ -15,20 +22,24 @@ files.forEach(function (url) {
 });
 
 Promise.all(promises).then(function (values) {
-    makeMap(values[0], values[1], values[2])
+
+    addBaseMap(values[0]);
+    addBubbleChartBubbles(values[1]);
+    addMapBubbles(values[2]);
+    addMovingBubbles(values[3]);
+    
 });
 
 var projection = d3.geoMercator();
 var geoPath = d3.geoPath().projection(projection);
 var radius = d3.scaleLog(); //function to scale the bubble chart circles
 
-function makeMap(europe, languages, newCoords) {
+function addBaseMap(basemap) {
 
-    //add map to right side of the page
-    projection.fitSize([width + 660, height], europe);
+    projection.fitSize([width + 660, height], basemap);
     svg.append("g")
         .selectAll("path")
-        .data(europe.features)
+        .data(basemap.features)
         .enter()
         .append("path")
         .attr("d", geoPath)
@@ -36,22 +47,19 @@ function makeMap(europe, languages, newCoords) {
         .attr("fill", "black")
         .attr("class", "europe");
 
-    addBubbles(languages, newCoords)
+
 }
 
-function addBubbles(languages, newCoords) {
-    //console.log(languages)
-     for (var b in languages.features) {
-        languages.features[b].properties.coords = [languages.features[b].properties.x, languages.features[b].properties.y]
-        languages.features[b].properties.bubbley = languages.features[b].properties.bubbley - 100;
-     }
+function addBubbleChartBubbles(bubbleChartBubbles) {
+    
+    for (var b in bubbleChartBubbles.features) {
+        bubbleChartBubbles.features[b].geometry.coordinates[1] = bubbleChartBubbles.features[b].geometry.coordinates[1] - 100;
+    }
 
-     //console.log(languages.features)
-    /*var bubbleChartCircles = svg.selectAll("circle")
-        .data(newCoords.features, function (d) {
+    svg.selectAll("circle")
+        .data(bubbleChartBubbles.features, function (d) {
             return d;
         }).enter().append("circle")
-
         .attr('r', function (d) {
             return radius(d.properties.speakers) * 2
         })
@@ -65,11 +73,11 @@ function addBubbles(languages, newCoords) {
             return d.properties.color
         })
         .attr('fill', '#323232ff')
-        .attr("class", "languages2")
+        .attr("class", "bubbleChartBubbles")
         .attr("id", function (d) {
-            return d.properties.ID
+            return "bubbleChart-"+ d.properties.ID
         })
-        .on("mouseover", function () {
+       /* .on("mouseover", function () {
             tooltip.style("display", null);
         })
         .on("mouseout", function () {
@@ -87,8 +95,41 @@ function addBubbles(languages, newCoords) {
             .on("drag", dragged)
             .on("end", leftDragEnd)); */
 
-    var mapBubbles = svg.selectAll("circle")
-        .data(languages.features, function (d) {
+}
+
+function addMapBubbles(mapBubbles) {
+
+    svg.selectAll("circle")
+        .data(mapBubbles.features, function (d) {
+            return d;
+        }).enter().append("circle")
+        .attr('r', function (d) {
+            return radius(d.properties.speakers) * 2
+        })
+        .attr('cx', function (d) {
+            return projection(d.geometry.coordinates)[0]
+        })
+        .attr('cy', function (d) {
+            return projection(d.geometry.coordinates)[1]
+        })
+        .attr('stroke', 'whitesmoke')
+        .attr('fill', '#323232ff')
+        .attr("class", "mapBubbles")
+        .attr("id", function (d) {
+            return "mapBubbles-"+ d.properties.ID
+        })
+
+}
+
+function addMovingBubbles(movingBubbles) {
+
+    for (var b in movingBubbles.features) {
+        movingBubbles.features[b].properties.coords = [movingBubbles.features[b].properties.x, movingBubbles.features[b].properties.y]
+        movingBubbles.features[b].properties.bubbley = movingBubbles.features[b].properties.bubbley - 100;
+    }
+
+    svg.selectAll("circle")
+        .data(movingBubbles.features, function (d) {
             return d;
         })
         .enter().append("circle")
@@ -105,23 +146,23 @@ function addBubbles(languages, newCoords) {
         .attr('fillOpacity', 0)
         .attr('stroke', 'red')
         .attr('stroke-width', 2)
-        .attr("class", "map")
+        .attr("class", "movingBubbles")
         .attr("id", function (d) {
-            return "map-" + d.properties.wals_code
+            return "movingBubbles-" + d.properties.wals_code
         })
         .call(d3.drag()
             .on("start", dragStart)
             .on("drag", dragged)
             .on("end", dragEnd));
 
+    /**************** DRAG FUNCTIONS **********************/
     function dragStart(d) {
+
         d3.event.sourceEvent.stopPropagation();
         tooltip.style("display", "none");
-        //console.log(d.properties.Name)
         var x = d3.select(this).attr("cx");
         var y = d3.select(this).attr("cy");
 
-        //console.log("start: " + x + " " + y);
         d3.select(this).classed("active", true)
     }
 
@@ -142,95 +183,24 @@ function addBubbles(languages, newCoords) {
             })
             .attr('cy', function (d) {
                 return projection(d.geometry.coordinates)[1]
-            })
-        //console.log(d)       
+            })     
     }
-
-    function leftDragEnd(d) {
-
-        /*  d3.selectAll(".map").each(function(d) {
-              console.log(d.properties.wals_code)
-          }) */
-
-        d3.select('#map-' + d.properties.ID)
-            .attr('stroke', "yellow")
-
-        //console.log(this.attributes.cx.value)
-        //console.log(d3.select('#map-' + d.properties.ID).attr('id'));
-        //console.log('----')
-        //console.log(d3.select('#map-' + d.properties.ID).attr('cx'));
-        //console.log('----')
-
-
-        var bubbleMovedX = this.attributes.cx.value;
-        var bubbleMovedY = this.attributes.cy.value;
-
-        var mapBubbleX = d3.select('#map-' + d.properties.ID).attr('cx');
-        var mapBubbleY = d3.select('#map-' + d.properties.ID).attr('cy');
-
-        //if( Math.abs(bubbleMovedX - mapBubbleX) < 30 && Math.abs(bubbleMovedY - mapBubbleY) < 30 ) {
-        if (Math.sqrt(Math.pow(Math.abs(bubbleMovedX - mapBubbleX), 2) + Math.pow(Math.abs(bubbleMovedY - mapBubbleY), 2)) < 50) {
-
-            d3.select(this)
-                .classed("active", false)
-                .transition()
-                .duration(500)
-                .attr('cx', function (d) {
-                    return mapBubbleX
-                })
-                .attr('cy', function (d) {
-                    return mapBubbleY
-                })
-
-
-        } else {
-            d3.select(this)
-                .classed("active", false)
-                .transition()
-                .duration(1500)
-                .attr('cx', function (d) {
-                    return d.geometry.coordinates[0]
-                })
-                .attr('cy', function (d) {
-                    return d.geometry.coordinates[1]
-                })
-        }
-    }
-
-    var tooltip = svg.append("g")
-        .attr("class", "tooltip")
-        .style("display", "none");
-
-    tooltip.append("rect")
-        .attr("width", 150)
-        .attr("height", 20)
-        .attr("fill", "white")
-        .style("opacity", 0.5);
-
-    tooltip.append("text")
-        .attr("x", 1)
-        .attr("dy", "1.0em")
-        .style("text-align", "center")
-        .attr("font-size", "15px")
-        .attr("font-weight", "bold");
-
 }
 
 function updateData() {
 
-    d3.select('.map').each(function(d){
-        
-    })
+  /*  d3.select('.movingBubbles').each(function (d) {
+        console.log(d)
+    }) */
 
-    if (d3.select('.map').classed('leftside')) {
-        
-        d3.selectAll('.map')
+    if (d3.select('.movingBubbles').classed('leftside')) {
+
+        d3.selectAll('.movingBubbles')
             .classed('leftside', false)
             .transition()
             .duration(1500)
             .attr('cx', function (d) {
                 return projection(d.properties.coords)[0];
-                
             })
             .attr('cy', function (d) {
                 return projection(d.properties.coords)[1];
@@ -238,7 +208,7 @@ function updateData() {
             .attr('stroke', 'red')
     } else {
 
-        d3.selectAll('.map')
+        d3.selectAll('.movingBubbles')
             .classed('leftside', true)
             .transition()
             .duration(1500)
