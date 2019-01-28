@@ -47,11 +47,12 @@ function addBaseMap(basemap) {
         .attr("fill", "black")
         .attr("class", "europe");
 
-
 }
 
+//add bubbleChart bubbles to the left
 function addBubbleChartBubbles(bubbleChartBubbles) {
     
+    //move all the bubbles up by 100
     for (var b in bubbleChartBubbles.features) {
         bubbleChartBubbles.features[b].geometry.coordinates[1] = bubbleChartBubbles.features[b].geometry.coordinates[1] - 100;
     }
