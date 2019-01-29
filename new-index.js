@@ -41,7 +41,6 @@ var geoPath = d3.geoPath().projection(projection);
 var radius = d3.scaleLog(); //function to scale the bubble chart circles
 
 
-
 function addBaseMap(basemap) {
 
     projection.fitSize([width + 660, height], basemap);
@@ -59,6 +58,8 @@ function addBaseMap(basemap) {
 
 //add bubbleChart bubbles to the left
 function addBubbleChartBubbles(bubbleChartBubbles) {
+
+    createAnnotations();
 
     //move all the bubbles up by 100
     for (var b in bubbleChartBubbles.features) {
@@ -96,7 +97,7 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
             var xPosition = d3.mouse(this)[0] - 15;
             var yPosition = d3.mouse(this)[1] - 25;
             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(d.properties.label);
+            tooltip.select("text").text(d.properties.Genus_CAPS);
         })
 
     /*.call(d3.drag()
@@ -120,6 +121,8 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .style("text-align", "center")
         .attr("font-size", "15px")
         .attr("font-weight", "bold");
+
+    
 
 }
 
@@ -267,4 +270,52 @@ function updateData() {
                 return d.properties.color
             })
     }
+}
+
+function createAnnotations() {
+    const type = d3.annotationCalloutCircle
+
+    const annotations = [
+        {
+        note: {
+            label: "Indo-European Family",
+            title: "Romance Genus",
+            wrap: 120
+        },
+        x: 230,
+        y: 283,
+        dy: -160,
+        dx: -90,
+        subject: {
+            radius: 83,
+            radiusPadding: 5
+        }
+    }, {
+        note: {
+            label: "Indo-European Family",
+            title: "Slavic Genus",
+            wrap: 130
+        },
+        
+        x: 390,
+        y: 203,
+        dy: -130,
+        dx: 30,
+        subject: {
+            radius: 79,
+            radiusPadding: 5
+        } 
+    }
+]
+
+    const makeAnnotations = d3.annotation()
+        .notePadding(5)
+        .type(type)
+        .annotations(annotations)
+
+    d3.select("svg")
+        .append("g")
+        .attr("class", "annotation-group")
+        .attr("class", "invisible")
+        .call(makeAnnotations)
 }

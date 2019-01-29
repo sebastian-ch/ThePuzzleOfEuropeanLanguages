@@ -6,6 +6,17 @@ body {
 
 }
 
+.annotation-note-title, text.title {
+    font-weight: bold;
+    font-size: 0.9em;
+    
+  }
+
+  .annotation-note-label {
+    font-size: 0.8em;
+    
+  }
+
 .active {
     stroke: yellow;
     stroke-width: 2px;
