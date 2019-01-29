@@ -7,11 +7,12 @@ var svg = d3.select("#container")
     .attr("height", height);
 
 var files = [
-    
+
     "geojsons/europeWrussia2.geojson",
     "geojsons/bubbleChart.geojson",
     "geojsons/mapBubbles.geojson",
     "geojsons/movingBubbles26-1.geojson",
+    "geojsons/langfams.geojson"
 
 ];
 
@@ -27,12 +28,15 @@ Promise.all(promises).then(function (values) {
     addBubbleChartBubbles(values[1]);
     addMapBubbles(values[2]);
     addMovingBubbles(values[3]);
-    
+    addLangFams(values[4]);
+
 });
 
 var projection = d3.geoMercator();
 var geoPath = d3.geoPath().projection(projection);
 var radius = d3.scaleLog(); //function to scale the bubble chart circles
+
+
 
 function addBaseMap(basemap) {
 
@@ -49,9 +53,66 @@ function addBaseMap(basemap) {
 
 }
 
+function addLangFams(langfams) {
+
+    console.log(langfams)
+
+    svg.append("g")
+        .selectAll("path")
+        .data(langfams.features)
+        .enter()
+        .append("path")
+        .attr("d", geoPath)
+        //.attr("stroke", "red")
+        /*.attr("fill", function(d){
+            if (d.properties.LANG_FAMILY == 'Uralic'){
+                return '#f900baff'
+            } else if(d.properties.LANG_FAMILY == 'Languages of the Caucasus') {
+                return '#e4bd00ff'
+            } else if(d.properties.LANG_FAMILY == 'Altaic') {
+                return '#47edb6ff'
+            } else if(d.properties.LANG_FAMILY == 'Basque') {
+                return '#fa0000ff'
+            } else if(d.properties.LANG_FAMILY == 'Indo-European') {
+                return 'blue'
+            } else {
+                return 'black';
+            }
+        }) */
+        .attr("class", "languages")
+        .attr('id', function (d) {
+            return d.properties.LANG_FAMILY
+        });
+
+
+
+    d3.selectAll('.name')
+        .on('click', function (d) {
+            //console.log(this.id)
+            if (d3.select('[id=' + this.id + ']').classed('filledIn')) {
+                d3.select('[id=' + this.id + ']')
+                    .classed('filledIn', false)
+                    .transition()
+                    .duration(1000)
+                    .style('fill', 'black')
+
+            } else {
+
+                d3.select('[id=' + this.id + ']')
+                    .classed('filledIn', true)
+                    .transition()
+                    .duration(1000)
+                    .style('fill', 'blue')
+
+            }
+        })
+
+
+}
+
 //add bubbleChart bubbles to the left
 function addBubbleChartBubbles(bubbleChartBubbles) {
-    
+
     //move all the bubbles up by 100
     for (var b in bubbleChartBubbles.features) {
         bubbleChartBubbles.features[b].geometry.coordinates[1] = bubbleChartBubbles.features[b].geometry.coordinates[1] - 100;
@@ -76,25 +137,25 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr('fill', '#323232ff')
         .attr("class", "bubbleChartBubbles")
         .attr("id", function (d) {
-            return "bubbleChart-"+ d.properties.ID
+            return "bubbleChart-" + d.properties.ID
         })
-       /* .on("mouseover", function () {
-            tooltip.style("display", null);
-        })
-        .on("mouseout", function () {
-            tooltip.style("display", "none");
-        })
-        .on("mousemove", function (d) {
-            var xPosition = d3.mouse(this)[0] - 15;
-            var yPosition = d3.mouse(this)[1] - 25;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(d.properties.label);
-        })
+    /* .on("mouseover", function () {
+         tooltip.style("display", null);
+     })
+     .on("mouseout", function () {
+         tooltip.style("display", "none");
+     })
+     .on("mousemove", function (d) {
+         var xPosition = d3.mouse(this)[0] - 15;
+         var yPosition = d3.mouse(this)[1] - 25;
+         tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+         tooltip.select("text").text(d.properties.label);
+     })
 
-        .call(d3.drag()
-            .on("start", dragStart)
-            .on("drag", dragged)
-            .on("end", leftDragEnd)); */
+     .call(d3.drag()
+         .on("start", dragStart)
+         .on("drag", dragged)
+         .on("end", leftDragEnd)); */
 
 }
 
@@ -117,7 +178,7 @@ function addMapBubbles(mapBubbles) {
         .attr('fill', '#323232ff')
         .attr("class", "mapBubbles")
         .attr("id", function (d) {
-            return "mapBubbles-"+ d.properties.ID
+            return "mapBubbles-" + d.properties.ID
         })
 
 }
@@ -184,15 +245,17 @@ function addMovingBubbles(movingBubbles) {
             })
             .attr('cy', function (d) {
                 return projection(d.geometry.coordinates)[1]
-            })     
+            })
     }
 }
 
+
+
 function updateData() {
 
-  /*  d3.select('.movingBubbles').each(function (d) {
-        console.log(d)
-    }) */
+    /*  d3.select('.movingBubbles').each(function (d) {
+          console.log(d)
+      }) */
 
     if (d3.select('.movingBubbles').classed('leftside')) {
 
