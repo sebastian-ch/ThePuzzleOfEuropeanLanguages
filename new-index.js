@@ -51,8 +51,6 @@ function addBaseMap(basemap) {
 
 }
 
-
-
 //add bubbleChart bubbles to the left
 function addBubbleChartBubbles(bubbleChartBubbles) {
 
@@ -128,6 +126,8 @@ function addMapBubbles(mapBubbles) {
 
 function addMovingBubbles(movingBubbles) {
 
+    console.log(movingBubbles)
+
     for (var b in movingBubbles.features) {
         movingBubbles.features[b].properties.coords = [movingBubbles.features[b].properties.x, movingBubbles.features[b].properties.y]
         movingBubbles.features[b].properties.bubbley = movingBubbles.features[b].properties.bubbley - 100;
@@ -190,9 +190,20 @@ function addMovingBubbles(movingBubbles) {
                 return projection(d.geometry.coordinates)[1]
             })
     }
+
+
+    d3.selectAll('.name').on('click', function(d) {
+        var name = this.id;
+
+        d3.selectAll('.movingBubbles')
+            .style('fill',function(s){
+                console.log(name)
+                if(s.properties.family == name) {
+                    return 'yellow'
+                }
+            })  
+    })
 }
-
-
 
 function updateData() {
 
