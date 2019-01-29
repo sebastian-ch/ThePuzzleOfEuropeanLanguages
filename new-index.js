@@ -10,10 +10,15 @@ var files = [
 
     "geojsons/europeWrussia2.geojson",
     "geojsons/bubbleChart.geojson",
-    "geojsons/mapBubbles.geojson",
+    "geojsons/mapBubbles29-1.geojson",
     "geojsons/movingBubbles26-1.geojson",
 
 ];
+
+var basemapG = svg.append("g"),
+    bubbleChartG = svg.append("g"),
+    mapBubblesG = svg.append("g"),
+    movingBubblesG = svg.append("g");
 
 var promises = [];
 
@@ -23,6 +28,7 @@ files.forEach(function (url) {
 
 Promise.all(promises).then(function (values) {
 
+    //console.log(values)
     addBaseMap(values[0]);
     addBubbleChartBubbles(values[1]);
     addMapBubbles(values[2]);
@@ -39,7 +45,7 @@ var radius = d3.scaleLog(); //function to scale the bubble chart circles
 function addBaseMap(basemap) {
 
     projection.fitSize([width + 660, height], basemap);
-    svg.append("g")
+    basemapG
         .selectAll("path")
         .data(basemap.features)
         .enter()
@@ -59,7 +65,7 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         bubbleChartBubbles.features[b].geometry.coordinates[1] = bubbleChartBubbles.features[b].geometry.coordinates[1] - 100;
     }
 
-    svg.selectAll("circle")
+    bubbleChartG.selectAll("circle")
         .data(bubbleChartBubbles.features, function (d) {
             return d;
         }).enter().append("circle")
@@ -80,30 +86,49 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr("id", function (d) {
             return "bubbleChart-" + d.properties.ID
         })
-    /* .on("mouseover", function () {
-         tooltip.style("display", null);
-     })
-     .on("mouseout", function () {
-         tooltip.style("display", "none");
-     })
-     .on("mousemove", function (d) {
-         var xPosition = d3.mouse(this)[0] - 15;
-         var yPosition = d3.mouse(this)[1] - 25;
-         tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-         tooltip.select("text").text(d.properties.label);
-     })
+        .on("mouseover", function () {
+            tooltip.style("display", null);
+        })
+        .on("mouseout", function () {
+            tooltip.style("display", "none");
+        })
+        .on("mousemove", function (d) {
+            var xPosition = d3.mouse(this)[0] - 15;
+            var yPosition = d3.mouse(this)[1] - 25;
+            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+            tooltip.select("text").text(d.properties.label);
+        })
 
-     .call(d3.drag()
-         .on("start", dragStart)
-         .on("drag", dragged)
-         .on("end", leftDragEnd)); */
+    /*.call(d3.drag()
+        .on("start", dragStart)
+        .on("drag", dragged)
+        .on("end", leftDragEnd)); */
+
+    var tooltip = svg.append("g")
+        .attr("class", "tooltip")
+        .style("display", "none");
+
+    tooltip.append("rect")
+        .attr("width", 150)
+        .attr("height", 20)
+        .attr("fill", "white")
+        .style("opacity", 0.5);
+
+    tooltip.append("text")
+        .attr("x", 1)
+        .attr("dy", "1.0em")
+        .style("text-align", "center")
+        .attr("font-size", "15px")
+        .attr("font-weight", "bold");
 
 }
 
 function addMapBubbles(mapBubbles) {
 
-    svg.selectAll("circle")
-        .data(mapBubbles.features, function (d) {
+    mapBubblesG.selectAll("circle")
+        .data(mapBubbles.features.sort(function (a, b) {
+            return b.properties.speakers - a.properties.speakers;
+        }), function (d) {
             return d;
         }).enter().append("circle")
         .attr('r', function (d) {
@@ -119,22 +144,23 @@ function addMapBubbles(mapBubbles) {
         .attr('fill', '#323232ff')
         .attr("class", "mapBubbles")
         .attr("id", function (d) {
-            return "mapBubbles-" + d.properties.ID
+            return "mapBubbles-" + d.properties.wals_code
         })
 
 }
 
 function addMovingBubbles(movingBubbles) {
 
-    console.log(movingBubbles)
-
     for (var b in movingBubbles.features) {
+
         movingBubbles.features[b].properties.coords = [movingBubbles.features[b].properties.x, movingBubbles.features[b].properties.y]
         movingBubbles.features[b].properties.bubbley = movingBubbles.features[b].properties.bubbley - 100;
     }
 
-    svg.selectAll("circle")
-        .data(movingBubbles.features, function (d) {
+    movingBubblesG.selectAll("circle")
+        .data(movingBubbles.features.sort(function (a, b) {
+            return b.properties.speakers - a.properties.speakers;
+        }), function (d) {
             return d;
         })
         .enter().append("circle")
@@ -153,7 +179,7 @@ function addMovingBubbles(movingBubbles) {
         .attr('stroke-width', 2)
         .attr("class", "movingBubbles")
         .attr("id", function (d) {
-            return "movingBubbles-" + d.properties.wals_code
+            return "movingBubbles-" //+ d.properties.wals_code_move
         })
         .call(d3.drag()
             .on("start", dragStart)
@@ -192,16 +218,17 @@ function addMovingBubbles(movingBubbles) {
     }
 
 
-    d3.selectAll('.name').on('click', function(d) {
+    d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
+        console.log(name)
 
         d3.selectAll('.movingBubbles')
-            .style('fill',function(s){
-                console.log(name)
-                if(s.properties.family == name) {
+            .style('fill', function (s) {
+                console.log(s.properties.family)
+                if (s.properties.family == name) {
                     return 'yellow'
                 }
-            })  
+            })
     })
 }
 
