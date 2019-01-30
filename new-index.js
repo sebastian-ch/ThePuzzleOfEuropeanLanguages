@@ -134,8 +134,8 @@ function addMapBubbles(mapBubbles) {
         .attr('cy', function (d) {
             return projection(d.geometry.coordinates)[1]
         })
-        .attr('stroke', 'whitesmoke')
-        .attr('fill', '#323232ff')
+        //.attr('stroke', 'whitesmoke')
+        //.attr('fill', '#323232ff')
         .attr("class", "mapBubbles")
         .attr("id", function (d) {
             return "mapBubbles-" + d.properties.wals_code
