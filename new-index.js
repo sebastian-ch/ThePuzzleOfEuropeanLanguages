@@ -171,7 +171,9 @@ function addMovingBubbles(movingBubbles) {
         .attr('fillOpacity', 0)
         .attr('stroke', 'red')
         .attr('stroke-width', 2)
-        .attr("class", "movingBubbles")
+        .attr("class", function(d) {
+            return "movingBubbles " + d.properties.family
+        })
         .style("cursor", "pointer")
         .attr("id", function (d) {
             return "movingBubbles" + d.properties.wals_code_move;
@@ -259,68 +261,19 @@ function addMovingBubbles(movingBubbles) {
     }
 
 
-
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
-        console.log(name);
-
-        if (d3.select('.movingBubbles').classed('leftside')) {
-
-            d3.selectAll('.movingBubbles')
-                .filter(function (d) {
-                    return d.properties.family == name;
-                })
-                .classed('leftside', false)
-                .transition()
-                .duration(1500)
-                .attr('cx', function (d) {
-                    return projection(d.properties.coords)[0];
-                })
-                .attr('cy', function (d) {
-                    return projection(d.properties.coords)[1];
-                })
-                .attr('stroke', 'red')
-
-        } else {
-
-            d3.selectAll('.movingBubbles')
-                .filter(function (d) {
-                    return d.properties.family == name;
-                })
-                .classed('leftside', true)
-                .transition()
-                .duration(1500)
-                .attr('cx', function (d) {
-                    return d.properties.bubblex
-                })
-                .attr('cy', function (d) {
-                    return d.properties.bubbley
-                })
-                .attr('stroke', function (d) {
-                    return d.properties.color
-                })
-        }
-
-
+        
+        d3.selectAll('.movingBubbles').style('fill', 'black')
+        if(d3.selectAll('.' + name)){
+            d3.selectAll('.' + name).style('fill', 'yellow');
+        } 
+            
     })
 
-    /*  d3.selectAll('.name').on('click', function (d) {
-          var name = this.id;
-          console.log(name)
-
-          d3.selectAll('.movingBubbles')
-              .style('fill', function (s) {
-                  console.log(s.properties.family)
-                  if (s.properties.family == name) {
-                      return 'yellow'
-                  }
-              })
-      }) */
 }
 
 function toTheLeftToTheLeft() {
-
-    if (!d3.select('.movingBubbles').classed('leftside')) {
 
         d3.selectAll('.movingBubbles')
             .classed('leftside', true).raise()
@@ -336,11 +289,8 @@ function toTheLeftToTheLeft() {
                 return d.properties.color
             })
     }
-}
 
 function toTheRight() {
-
-    if (d3.select('.movingBubbles').classed('leftside')) {
 
         d3.selectAll('.movingBubbles')
             .classed('leftside', false).raise()
@@ -353,15 +303,13 @@ function toTheRight() {
                 return projection(d.properties.coords)[1];
             })
             .attr('stroke', 'red')
-    }
-
 }
 
-function updateData() {
+/*function updateData() {
 
     /*  d3.select('.movingBubbles').each(function (d) {
           console.log(d)
-      }) */
+      })
 
     if (d3.select('.movingBubbles').classed('leftside')) {
 
@@ -392,4 +340,4 @@ function updateData() {
                 return d.properties.color
             })
     }
-}
+}  */
