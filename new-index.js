@@ -171,7 +171,7 @@ function addMovingBubbles(movingBubbles) {
         .attr('fillOpacity', 0)
         .attr('stroke', 'red')
         .attr('stroke-width', 2)
-        .attr("class", function(d) {
+        .attr("class", function (d) {
             return "movingBubbles " + d.properties.family
         })
         .style("cursor", "pointer")
@@ -263,46 +263,79 @@ function addMovingBubbles(movingBubbles) {
 
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
-        
-        d3.selectAll('.movingBubbles').style('fill', 'black')
+
+        var selection = d3.selectAll('.' + name);
+        console.log(selection.classed('leftside'));
+
+        if (selection.classed('leftside')) {
+            selection
+                .classed('leftside', false).raise()
+                .transition()
+                .duration(1500)
+                .attr('cx', function (d) {
+                    return projection(d.properties.coords)[0];
+                })
+                .attr('cy', function (d) {
+                    return projection(d.properties.coords)[1];
+                })
+                .attr('stroke', 'red')
+        } else {
+            selection
+                .classed('leftside', true).raise()
+                .transition()
+                .duration(1500)
+                .attr('cx', function (d) {
+                    return d.properties.bubblex
+                })
+                .attr('cy', function (d) {
+                    return d.properties.bubbley
+                })
+                .attr('stroke', function (d) {
+                    return d.properties.color
+                })
+
+
+        }
+
+        /*d3.selectAll('.movingBubbles').style('fill', 'black')
         if(d3.selectAll('.' + name)){
             d3.selectAll('.' + name).style('fill', 'yellow');
-        } 
-            
+        } */
+
     })
 
 }
 
 function toTheLeftToTheLeft() {
 
-        d3.selectAll('.movingBubbles')
-            .classed('leftside', true).raise()
-            .transition()
-            .duration(1500)
-            .attr('cx', function (d) {
-                return d.properties.bubblex
-            })
-            .attr('cy', function (d) {
-                return d.properties.bubbley
-            })
-            .attr('stroke', function (d) {
-                return d.properties.color
-            })
-    }
+    d3.selectAll('.movingBubbles')
+        .classed('leftside', true).raise()
+        .transition()
+        .duration(1500)
+        .attr('cx', function (d) {
+            return d.properties.bubblex
+        })
+        .attr('cy', function (d) {
+            return d.properties.bubbley
+        })
+        .attr('stroke', function (d) {
+            return d.properties.color
+        })
+}
 
 function toTheRight() {
 
-        d3.selectAll('.movingBubbles')
-            .classed('leftside', false).raise()
-            .transition()
-            .duration(1500)
-            .attr('cx', function (d) {
-                return projection(d.properties.coords)[0];
-            })
-            .attr('cy', function (d) {
-                return projection(d.properties.coords)[1];
-            })
-            .attr('stroke', 'red')
+    d3.selectAll('.movingBubbles')
+        .classed('leftside', false).raise()
+        .transition()
+        .duration(1500)
+        .attr('cx', function (d) {
+            return projection(d.properties.coords)[0];
+        })
+        .attr('cy', function (d) {
+            return projection(d.properties.coords)[1];
+        })
+        .attr('stroke', 'red')
 }
 
 /*function updateData() {
