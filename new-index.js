@@ -161,7 +161,7 @@ function addMovingBubbles(movingBubbles) {
             var xPosition = d3.mouse(this)[0] - 15;
             var yPosition = d3.mouse(this)[1] - 25;
             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(d.properties.label);
+            tooltip.select("text").text('popup!');
         })
 
         .call(d3.drag()
@@ -174,15 +174,16 @@ function addMovingBubbles(movingBubbles) {
         .style("display", "none");
 
     tooltip.append("rect")
-        .attr("width", 150)
+        //.attr("width", 100)
         .attr("height", 20)
-        .attr("fill", "white")
-        .style("opacity", 0.5);
+        
+        //.style("opacity", 0.5);
 
     tooltip.append("text")
         .attr("x", 1)
         .attr("dy", "1.0em")
         .style("text-align", "center")
+        .attr('fill', 'whitesmoke')
         .attr("font-size", "15px")
         .attr("font-weight", "bold");
 
