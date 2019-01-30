@@ -263,11 +263,12 @@ function addMovingBubbles(movingBubbles) {
 
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
-
+        
         var selection = d3.selectAll('.' + name);
-        console.log(selection.classed('leftside'));
+        //console.log(selection.classed('leftside'));
 
         if (selection.classed('leftside')) {
+            d3.select(this).html('&#9665; ' + name.toUpperCase() + ' &#9654;')
             selection
                 .classed('leftside', false).raise()
                 .transition()
@@ -280,6 +281,7 @@ function addMovingBubbles(movingBubbles) {
                 })
                 .attr('stroke', 'red')
         } else {
+            d3.select(this).html('&#9664; ' + name.toUpperCase() + ' &#9655;')
             selection
                 .classed('leftside', true).raise()
                 .transition()
