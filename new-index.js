@@ -1,3 +1,4 @@
+
 var width = parseInt(d3.select('#container').style('width')),
     height = 700;
 
@@ -30,7 +31,7 @@ Promise.all(promises).then(function (values) {
 
     //console.log(values)
     addBaseMap(values[0]);
-    addBubbleChartBubbles(values[1]);
+    //addBubbleChartBubbles(values[1]);
     addMapBubbles(values[2]);
     addMovingBubbles(values[3]);
 
@@ -59,8 +60,6 @@ function addBaseMap(basemap) {
 //add bubbleChart bubbles to the left
 function addBubbleChartBubbles(bubbleChartBubbles) {
 
-    createAnnotations();
-
     //move all the bubbles up by 100
     for (var b in bubbleChartBubbles.features) {
         bubbleChartBubbles.features[b].geometry.coordinates[1] = bubbleChartBubbles.features[b].geometry.coordinates[1] - 100;
@@ -87,7 +86,7 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr("id", function (d) {
             return "bubbleChart-" + d.properties.ID
         })
-        .on("mouseover", function () {
+      /*  .on("mouseover", function () {
             tooltip.style("display", null);
         })
         .on("mouseout", function () {
@@ -97,13 +96,8 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
             var xPosition = d3.mouse(this)[0] - 15;
             var yPosition = d3.mouse(this)[1] - 25;
             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(d.properties.Genus_CAPS);
-        })
-
-    /*.call(d3.drag()
-        .on("start", dragStart)
-        .on("drag", dragged)
-        .on("end", leftDragEnd)); */
+            tooltip.select("text").text(d.properties.label);
+        }) */
 
     var tooltip = svg.append("g")
         .attr("class", "tooltip")
@@ -120,13 +114,12 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr("dy", "1.0em")
         .style("text-align", "center")
         .attr("font-size", "15px")
-        .attr("font-weight", "bold");
-
-    
+        .attr("font-weight", "bold"); 
 
 }
 
 function addMapBubbles(mapBubbles) {
+    console.log(mapBubbles);
 
     mapBubblesG.selectAll("circle")
         .data(mapBubbles.features.sort(function (a, b) {
@@ -181,8 +174,9 @@ function addMovingBubbles(movingBubbles) {
         .attr('stroke', 'red')
         .attr('stroke-width', 2)
         .attr("class", "movingBubbles")
+        .style("cursor", "pointer")
         .attr("id", function (d) {
-            return "movingBubbles-" //+ d.properties.wals_code_move
+            return "movingBubbles" //d.properties.wals_code_move
         })
         .call(d3.drag()
             .on("start", dragStart)
@@ -193,22 +187,32 @@ function addMovingBubbles(movingBubbles) {
     function dragStart(d) {
 
         d3.event.sourceEvent.stopPropagation();
-        tooltip.style("display", "none");
+        //tooltip.style("display", "none");
         var x = d3.select(this).attr("cx");
         var y = d3.select(this).attr("cy");
 
-        d3.select(this).classed("active", true)
+        d3.select(this).classed("active", true).raise()
     }
 
     function dragged(d) {
-        tooltip.style("display", "none");
+        //tooltip.style("display", "none");
         d3.select(this)
             .attr("cx", d3.event.x)
             .attr("cy", d3.event.y);
     }
 
     function dragEnd(d) {
-        d3.select(this)
+
+            console.log(d3.select(this))
+      //d3.select(this).classed('.leftside')) 
+            
+            d3.select('#mapBubbles-' + this.id)
+                .attr('stroke', "yellow")
+
+        
+
+
+      /*  d3.select(this)
             .classed("active", false)
             .transition()
             .duration(1500)
@@ -217,9 +221,10 @@ function addMovingBubbles(movingBubbles) {
             })
             .attr('cy', function (d) {
                 return projection(d.geometry.coordinates)[1]
-            })
+            }) */
     }
 
+    //createAnnotations();
 
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
@@ -244,7 +249,7 @@ function updateData() {
     if (d3.select('.movingBubbles').classed('leftside')) {
 
         d3.selectAll('.movingBubbles')
-            .classed('leftside', false)
+            .classed('leftside', false).raise()
             .transition()
             .duration(1500)
             .attr('cx', function (d) {
@@ -257,7 +262,7 @@ function updateData() {
     } else {
 
         d3.selectAll('.movingBubbles')
-            .classed('leftside', true)
+            .classed('leftside', true).raise()
             .transition()
             .duration(1500)
             .attr('cx', function (d) {
@@ -317,5 +322,6 @@ function createAnnotations() {
         .append("g")
         .attr("class", "annotation-group")
         .attr("class", "invisible")
+        .attr("z-index", "-1")
         .call(makeAnnotations)
 }
