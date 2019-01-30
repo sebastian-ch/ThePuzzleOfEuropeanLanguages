@@ -85,35 +85,7 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr("id", function (d) {
             return "bubbleChart-" + d.properties.ID
         })
-    /*  .on("mouseover", function () {
-          tooltip.style("display", null);
-      })
-      .on("mouseout", function () {
-          tooltip.style("display", "none");
-      })
-      .on("mousemove", function (d) {
-          var xPosition = d3.mouse(this)[0] - 15;
-          var yPosition = d3.mouse(this)[1] - 25;
-          tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-          tooltip.select("text").text(d.properties.label);
-      }) */
 
-    var tooltip = svg.append("g")
-        .attr("class", "tooltip")
-        .style("display", "none");
-
-    tooltip.append("rect")
-        .attr("width", 150)
-        .attr("height", 20)
-        .attr("fill", "white")
-        .style("opacity", 0.5);
-
-    tooltip.append("text")
-        .attr("x", 1)
-        .attr("dy", "1.0em")
-        .style("text-align", "center")
-        .attr("font-size", "15px")
-        .attr("font-weight", "bold");
 
 }
 
@@ -179,10 +151,40 @@ function addMovingBubbles(movingBubbles) {
             return "movingBubbles" + d.properties.wals_code_move;
             //return d.properties.wals_code_move;
         })
+        .on("mouseover", function () {
+            tooltip.style("display", null);
+        })
+        .on("mouseout", function () {
+            tooltip.style("display", "none");
+        })
+        .on("mousemove", function (d) {
+            var xPosition = d3.mouse(this)[0] - 15;
+            var yPosition = d3.mouse(this)[1] - 25;
+            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+            tooltip.select("text").text(d.properties.label);
+        })
+
         .call(d3.drag()
             .on("start", dragStart)
             .on("drag", dragged)
             .on("end", dragEnd));
+
+    var tooltip = svg.append("g")
+        .attr("class", "tooltip")
+        .style("display", "none");
+
+    tooltip.append("rect")
+        .attr("width", 150)
+        .attr("height", 20)
+        .attr("fill", "white")
+        .style("opacity", 0.5);
+
+    tooltip.append("text")
+        .attr("x", 1)
+        .attr("dy", "1.0em")
+        .style("text-align", "center")
+        .attr("font-size", "15px")
+        .attr("font-weight", "bold");
 
     /**************** DRAG FUNCTIONS **********************/
     function dragStart(d) {
@@ -221,7 +223,6 @@ function addMovingBubbles(movingBubbles) {
 
                 d3.select(this)
                     .classed("active", false)
-
                     .transition()
                     .duration(500)
                     .attr('cx', function (d) {
@@ -263,7 +264,7 @@ function addMovingBubbles(movingBubbles) {
 
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
-        
+
         var selection = d3.selectAll('.' + name);
         //console.log(selection.classed('leftside'));
 
@@ -339,40 +340,3 @@ function toTheRight() {
         })
         .attr('stroke', 'red')
 }
-
-/*function updateData() {
-
-    /*  d3.select('.movingBubbles').each(function (d) {
-          console.log(d)
-      })
-
-    if (d3.select('.movingBubbles').classed('leftside')) {
-
-        d3.selectAll('.movingBubbles')
-            .classed('leftside', false).raise()
-            .transition()
-            .duration(1500)
-            .attr('cx', function (d) {
-                return projection(d.properties.coords)[0];
-            })
-            .attr('cy', function (d) {
-                return projection(d.properties.coords)[1];
-            })
-            .attr('stroke', 'red')
-    } else {
-
-        d3.selectAll('.movingBubbles')
-            .classed('leftside', true).raise()
-            .transition()
-            .duration(1500)
-            .attr('cx', function (d) {
-                return d.properties.bubblex
-            })
-            .attr('cy', function (d) {
-                return d.properties.bubbley
-            })
-            .attr('stroke', function (d) {
-                return d.properties.color
-            })
-    }
-}  */

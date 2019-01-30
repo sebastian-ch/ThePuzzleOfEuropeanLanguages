@@ -253,3 +253,40 @@ function updateData() {
             })
     }
 }
+
+/*function updateData() {
+
+    /*  d3.select('.movingBubbles').each(function (d) {
+          console.log(d)
+      })
+
+    if (d3.select('.movingBubbles').classed('leftside')) {
+
+        d3.selectAll('.movingBubbles')
+            .classed('leftside', false).raise()
+            .transition()
+            .duration(1500)
+            .attr('cx', function (d) {
+                return projection(d.properties.coords)[0];
+            })
+            .attr('cy', function (d) {
+                return projection(d.properties.coords)[1];
+            })
+            .attr('stroke', 'red')
+    } else {
+
+        d3.selectAll('.movingBubbles')
+            .classed('leftside', true).raise()
+            .transition()
+            .duration(1500)
+            .attr('cx', function (d) {
+                return d.properties.bubblex
+            })
+            .attr('cy', function (d) {
+                return d.properties.bubbley
+            })
+            .attr('stroke', function (d) {
+                return d.properties.color
+            })
+    }
+}  */

@@ -6,16 +6,17 @@ body {
 
 }
 
-.annotation-note-title, text.title {
+.annotation-note-title,
+text.title {
     font-weight: bold;
     font-size: 0.9em;
-    
-  }
 
-  .annotation-note-label {
+}
+
+.annotation-note-label {
     font-size: 0.8em;
-    
-  }
+
+}
 
 .active {
     stroke: yellow;
@@ -23,13 +24,16 @@ body {
 }
 
 h1 {
-    text-align:center;
-    
+    /*text-align: center; */
+    position: absolute;
+    /*padding-top: 10px; */
+    margin-top: 5px;
+    margin-left: 200px;
     width: 90%;
-    margin: 10px auto 10px auto;
-    left: 20px;
-    top: 10px;
-    font-size: 2.7em;
+    /*margin: 10px auto 10px auto; */
+    /*left: 20px; 
+    top: 10px; */
+    font-size: 1.9em;
     font-weight: 120;
     /*color: #005DAA; */
     color: whitesmoke;
@@ -60,12 +64,28 @@ h3 {
     z-index: 10;
 }
 
+/*button {
+    
+    
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    background: #323232ff;
+  } */
+
+.button, button {
+    padding: 0;
+    margin: 0;
+    background: #323232ff;
+    font-size: 1.3em;
+    float: left;
+}
+
 .name:hover {
     cursor: pointer;
     /*color: rgba(0, 0, 0, 0.5); */
     opacity: 0.5;
 }
-
 
 table {
     width: 90%;
