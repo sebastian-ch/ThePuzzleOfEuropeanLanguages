@@ -1,4 +1,3 @@
-
 var width = parseInt(d3.select('#container').style('width')),
     height = 700;
 
@@ -31,7 +30,7 @@ Promise.all(promises).then(function (values) {
 
     //console.log(values)
     addBaseMap(values[0]);
-    //addBubbleChartBubbles(values[1]);
+    addBubbleChartBubbles(values[1]);
     addMapBubbles(values[2]);
     addMovingBubbles(values[3]);
 
@@ -86,18 +85,18 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr("id", function (d) {
             return "bubbleChart-" + d.properties.ID
         })
-      /*  .on("mouseover", function () {
-            tooltip.style("display", null);
-        })
-        .on("mouseout", function () {
-            tooltip.style("display", "none");
-        })
-        .on("mousemove", function (d) {
-            var xPosition = d3.mouse(this)[0] - 15;
-            var yPosition = d3.mouse(this)[1] - 25;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(d.properties.label);
-        }) */
+    /*  .on("mouseover", function () {
+          tooltip.style("display", null);
+      })
+      .on("mouseout", function () {
+          tooltip.style("display", "none");
+      })
+      .on("mousemove", function (d) {
+          var xPosition = d3.mouse(this)[0] - 15;
+          var yPosition = d3.mouse(this)[1] - 25;
+          tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+          tooltip.select("text").text(d.properties.label);
+      }) */
 
     var tooltip = svg.append("g")
         .attr("class", "tooltip")
@@ -114,12 +113,11 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr("dy", "1.0em")
         .style("text-align", "center")
         .attr("font-size", "15px")
-        .attr("font-weight", "bold"); 
+        .attr("font-weight", "bold");
 
 }
 
 function addMapBubbles(mapBubbles) {
-    console.log(mapBubbles);
 
     mapBubblesG.selectAll("circle")
         .data(mapBubbles.features.sort(function (a, b) {
@@ -176,7 +174,8 @@ function addMovingBubbles(movingBubbles) {
         .attr("class", "movingBubbles")
         .style("cursor", "pointer")
         .attr("id", function (d) {
-            return "movingBubbles" //d.properties.wals_code_move
+            return "movingBubbles" + d.properties.wals_code_move;
+            //return d.properties.wals_code_move;
         })
         .call(d3.drag()
             .on("start", dragStart)
@@ -203,41 +202,159 @@ function addMovingBubbles(movingBubbles) {
 
     function dragEnd(d) {
 
-            console.log(d3.select(this))
-      //d3.select(this).classed('.leftside')) 
-            
-            d3.select('#mapBubbles-' + this.id)
+
+        if (d3.select(this).classed('leftside')) {
+
+            d3.select('#mapBubbles-' + d.properties.wals_code_move)
                 .attr('stroke', "yellow")
 
-        
+            var bubbleMovedX = this.attributes.cx.value;
+            var bubbleMovedY = this.attributes.cy.value;
+
+            var mapBubbleX = d3.select('#mapBubbles-' + d.properties.wals_code_move).attr('cx');
+            console.log(d.properties.wals_code_move)
+            var mapBubbleY = d3.select('#mapBubbles-' + d.properties.wals_code_move).attr('cy');
+
+            if (Math.sqrt(Math.pow(Math.abs(bubbleMovedX - mapBubbleX), 2) + Math.pow(Math.abs(bubbleMovedY - mapBubbleY), 2)) < 50) {
+
+                d3.select(this)
+                    .classed("active", false)
+
+                    .transition()
+                    .duration(500)
+                    .attr('cx', function (d) {
+                        return mapBubbleX
+                    })
+                    .attr('cy', function (d) {
+                        return mapBubbleY
+                    })
+            } else {
+                d3.select(this)
+                    .classed("active", false)
+                    .transition()
+                    .duration(1500)
+                    .attr('cx', function (d) {
+                        return d.properties.bubblex
+                    })
+                    .attr('cy', function (d) {
+                        return d.properties.bubbley
+                    })
+            }
 
 
-      /*  d3.select(this)
-            .classed("active", false)
-            .transition()
-            .duration(1500)
-            .attr('cx', function (d) {
-                return projection(d.geometry.coordinates)[0]
-            })
-            .attr('cy', function (d) {
-                return projection(d.geometry.coordinates)[1]
-            }) */
+        } else {
+
+            d3.select(this)
+                .classed("active", false)
+                .transition()
+                .duration(1500)
+                .attr('cx', function (d) {
+                    return projection(d.geometry.coordinates)[0]
+                })
+                .attr('cy', function (d) {
+                    return projection(d.geometry.coordinates)[1]
+                })
+        }
+
     }
 
-    //createAnnotations();
+
 
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
-        console.log(name)
+        console.log(name);
+
+        if (d3.select('.movingBubbles').classed('leftside')) {
+
+            d3.selectAll('.movingBubbles')
+                .filter(function (d) {
+                    return d.properties.family == name;
+                })
+                .classed('leftside', false)
+                .transition()
+                .duration(1500)
+                .attr('cx', function (d) {
+                    return projection(d.properties.coords)[0];
+                })
+                .attr('cy', function (d) {
+                    return projection(d.properties.coords)[1];
+                })
+                .attr('stroke', 'red')
+
+        } else {
+
+            d3.selectAll('.movingBubbles')
+                .filter(function (d) {
+                    return d.properties.family == name;
+                })
+                .classed('leftside', true)
+                .transition()
+                .duration(1500)
+                .attr('cx', function (d) {
+                    return d.properties.bubblex
+                })
+                .attr('cy', function (d) {
+                    return d.properties.bubbley
+                })
+                .attr('stroke', function (d) {
+                    return d.properties.color
+                })
+        }
+
+
+    })
+
+    /*  d3.selectAll('.name').on('click', function (d) {
+          var name = this.id;
+          console.log(name)
+
+          d3.selectAll('.movingBubbles')
+              .style('fill', function (s) {
+                  console.log(s.properties.family)
+                  if (s.properties.family == name) {
+                      return 'yellow'
+                  }
+              })
+      }) */
+}
+
+function toTheLeftToTheLeft() {
+
+    if (!d3.select('.movingBubbles').classed('leftside')) {
 
         d3.selectAll('.movingBubbles')
-            .style('fill', function (s) {
-                console.log(s.properties.family)
-                if (s.properties.family == name) {
-                    return 'yellow'
-                }
+            .classed('leftside', true).raise()
+            .transition()
+            .duration(1500)
+            .attr('cx', function (d) {
+                return d.properties.bubblex
             })
-    })
+            .attr('cy', function (d) {
+                return d.properties.bubbley
+            })
+            .attr('stroke', function (d) {
+                return d.properties.color
+            })
+    }
+}
+
+function toTheRight() {
+
+    if (d3.select('.movingBubbles').classed('leftside')) {
+
+        d3.selectAll('.movingBubbles')
+            .classed('leftside', false).raise()
+            .transition()
+            .duration(1500)
+            .attr('cx', function (d) {
+                return projection(d.properties.coords)[0];
+            })
+            .attr('cy', function (d) {
+                return projection(d.properties.coords)[1];
+            })
+            .attr('stroke', 'red')
+    }
+
 }
 
 function updateData() {
@@ -275,53 +392,4 @@ function updateData() {
                 return d.properties.color
             })
     }
-}
-
-function createAnnotations() {
-    const type = d3.annotationCalloutCircle
-
-    const annotations = [
-        {
-        note: {
-            label: "Indo-European Family",
-            title: "Romance Genus",
-            wrap: 120
-        },
-        x: 230,
-        y: 283,
-        dy: -160,
-        dx: -90,
-        subject: {
-            radius: 83,
-            radiusPadding: 5
-        }
-    }, {
-        note: {
-            label: "Indo-European Family",
-            title: "Slavic Genus",
-            wrap: 130
-        },
-        
-        x: 390,
-        y: 203,
-        dy: -130,
-        dx: 30,
-        subject: {
-            radius: 79,
-            radiusPadding: 5
-        } 
-    }
-]
-
-    const makeAnnotations = d3.annotation()
-        .notePadding(5)
-        .type(type)
-        .annotations(annotations)
-
-    d3.select("svg")
-        .append("g")
-        .attr("class", "annotation-group")
-        .attr("class", "invisible")
-        .attr("z-index", "-1")
-        .call(makeAnnotations)
 }
