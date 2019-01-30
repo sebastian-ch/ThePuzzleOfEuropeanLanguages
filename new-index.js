@@ -172,7 +172,7 @@ function addMovingBubbles(movingBubbles) {
         .attr('stroke', 'red')
         .attr('stroke-width', 2)
         .attr("class", function (d) {
-            return "movingBubbles " + d.properties.family
+            return "movingBubbles " + d.properties.family + " " + d.properties.Genus_CAPS.toLowerCase()
         })
         .style("cursor", "pointer")
         .attr("id", function (d) {
