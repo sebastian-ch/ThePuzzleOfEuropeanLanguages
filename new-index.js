@@ -150,7 +150,7 @@ function addMovingBubbles(movingBubbles) {
         })
         .attr('opacity', 1)
         .attr('stroke', 'black')
-        .attr('stroke-width', 1)
+        .attr('stroke-width', 2)
         .attr("class", function (d) {
             return "movingBubbles " + d.properties.family + " " + d.properties.Genus_CAPS.toLowerCase()
         })
@@ -293,32 +293,7 @@ function addMovingBubbles(movingBubbles) {
 
         }
 
-
-
-
-
-        /*else {
-
-            d3.select(this)
-                .classed("active", false)
-                .transition()
-                .duration(1500)
-                .attr('cx', function (d) {
-                    return projection(d.geometry.coordinates)[0]
-                })
-                .attr('cy', function (d) {
-                    return projection(d.geometry.coordinates)[1]
-                })
-        } */
-
     }
-
-    /* d3.selectAll('.button').on('click', function (d) {
-         if (this.classed('filled') {
-
-         })
-     }) */
-
 
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
@@ -351,9 +326,8 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return d.properties.bubbley
                 })
-                .attr('stroke', function (d) {
-                    return d.properties.color
-                })
+                .attr('stroke', 'black')
+                .attr('stroke-width', 2)
 
 
         }
@@ -379,9 +353,8 @@ function toTheLeftToTheLeft() {
         .attr('cy', function (d) {
             return d.properties.bubbley
         })
-        .attr('stroke', function (d) {
-            return d.properties.color
-        })
+        .attr('stroke', 'black')
+        .attr('stroke-width', 2)
 }
 
 function toTheRight() {
@@ -397,5 +370,5 @@ function toTheRight() {
             return projection(d.properties.coords)[1];
         })
         .attr('stroke', 'black')
-        .attr('stroke-width', 1)
+        .attr('stroke-width', 2)
 }
