@@ -20,6 +20,7 @@ var basemapG = svg.append("g"),
     mapBubblesG = svg.append("g"),
     movingBubblesG = svg.append("g");
 
+
 var promises = [];
 
 files.forEach(function (url) {
@@ -41,6 +42,7 @@ var geoPath = d3.geoPath().projection(projection);
 var radius = d3.scaleLog(); //function to scale the bubble chart circles
 
 
+/************************** ADD EUROPE BASEMAP ON THE RIGHT SIDE **********************/
 function addBaseMap(basemap) {
 
     projection.fitSize([width + 660, height], basemap);
@@ -51,12 +53,13 @@ function addBaseMap(basemap) {
         .append("path")
         .attr("d", geoPath)
         //.attr("stroke", "whitesmoke")
+        //.attr("stroke-width", 0.2)
         .attr("fill", "black")
         .attr("class", "europe");
 
 }
 
-//add bubbleChart bubbles to the left
+/************************** ADD BUBBLES ON THE BUBBLE CHART SIDE **********************/
 function addBubbleChartBubbles(bubbleChartBubbles) {
 
     //move all the bubbles up by 100
@@ -83,12 +86,14 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr('fill', '#323232ff')
         .attr("class", "bubbleChartBubbles")
         .attr("id", function (d) {
+            //console.log("bubbleChart-" + d.properties.ID);
             return "bubbleChart-" + d.properties.ID
         })
 
 
 }
 
+/************************** ADD INVISIBLE BUBBLES ON RIGHT SIDE **********************/
 function addMapBubbles(mapBubbles) {
 
     mapBubblesG.selectAll("circle")
@@ -107,6 +112,7 @@ function addMapBubbles(mapBubbles) {
             return projection(d.geometry.coordinates)[1]
         })
         //.attr('stroke', 'whitesmoke')
+        .attr('fill-opacity', 0)
         //.attr('fill', '#323232ff')
         .attr("class", "mapBubbles")
         .attr("id", function (d) {
@@ -114,7 +120,7 @@ function addMapBubbles(mapBubbles) {
         })
 
 }
-
+/************************** ADD MOVING BUBBLES **********************/
 function addMovingBubbles(movingBubbles) {
 
     for (var b in movingBubbles.features) {
@@ -142,7 +148,7 @@ function addMovingBubbles(movingBubbles) {
         .attr('fill', function (d) {
             return d.properties.color
         })
-        .attr('fillOpacity', 0)
+        .attr('opacity', 1)
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
         .attr("class", function (d) {
@@ -151,9 +157,8 @@ function addMovingBubbles(movingBubbles) {
         .style("cursor", "pointer")
         .attr("id", function (d) {
             return "movingBubbles" + d.properties.wals_code_move;
-            //return d.properties.wals_code_move;
         })
-        .on("mouseover", function () {
+        .on("mouseover", function (d) {
             tooltip.style("display", null);
         })
         .on("mouseout", function () {
@@ -163,7 +168,7 @@ function addMovingBubbles(movingBubbles) {
             var xPosition = d3.mouse(this)[0] - 15;
             var yPosition = d3.mouse(this)[1] - 25;
             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text('popup!');
+            tooltip.select('text').html(d.properties.Name)
         })
 
         .call(d3.drag()
@@ -171,15 +176,15 @@ function addMovingBubbles(movingBubbles) {
             .on("drag", dragged)
             .on("end", dragEnd));
 
+    /************************** TOOLTIP FUNCTIONS **********************/
     var tooltip = svg.append("g")
         .attr("class", "tooltip")
-        .style("display", "none");
+        .style("display", "none")
 
     tooltip.append("rect")
-        //.attr("width", 100)
-        .attr("height", 20)
-        
-        //.style("opacity", 0.5);
+    //.attr("width", 100)
+    //.attr("height", 20)
+    //.style("opacity", 0.5);
 
     tooltip.append("text")
         .attr("x", 1)
@@ -189,7 +194,7 @@ function addMovingBubbles(movingBubbles) {
         .attr("font-size", "15px")
         .attr("font-weight", "bold");
 
-    /**************** DRAG FUNCTIONS **********************/
+    /************************** DRAG FUNCTIONS **********************/
     function dragStart(d) {
 
         d3.event.sourceEvent.stopPropagation();
@@ -248,7 +253,51 @@ function addMovingBubbles(movingBubbles) {
             }
 
 
-        } else {
+        } else if (!d3.select(this).classed('leftside')) {
+
+            d3.select('#bubbleChart-' + d.properties.wals_code_move)
+                .attr('stroke', "yellow")
+
+            var bubbleMovedX = this.attributes.cx.value;
+            var bubbleMovedY = this.attributes.cy.value;
+
+            var bubbleChartX = d3.select('#bubbleChart-' + d.properties.wals_code_move).attr('cx');
+            
+            var bubbleChartY = d3.select('#bubbleChart-' + d.properties.wals_code_move).attr('cy');
+
+            if (Math.sqrt(Math.pow(Math.abs(bubbleMovedX - bubbleChartX), 2) + Math.pow(Math.abs(bubbleMovedY - bubbleChartY), 2)) < 50) {
+
+                d3.select(this)
+                    .classed("active", false)
+                    .transition()
+                    .duration(500)
+                    .attr('cx', function (d) {
+                        return bubbleChartX
+                    })
+                    .attr('cy', function (d) {
+                        return bubbleChartY
+                    })
+            } else {
+                d3.select(this)
+                    .classed("active", false)
+                    .transition()
+                    .duration(1500)
+                    .attr('cx', function (d) {
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr('cy', function (d) {
+                        return projection(d.geometry.coordinates)[1]
+                    })
+            }
+
+
+        }
+
+
+
+
+
+        /*else {
 
             d3.select(this)
                 .classed("active", false)
@@ -260,15 +309,15 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return projection(d.geometry.coordinates)[1]
                 })
-        }
+        } */
 
     }
 
-   /* d3.selectAll('.button').on('click', function (d) {
-        if (this.classed('filled') {
+    /* d3.selectAll('.button').on('click', function (d) {
+         if (this.classed('filled') {
 
-        })
-    }) */
+         })
+     }) */
 
 
     d3.selectAll('.name').on('click', function (d) {
@@ -289,7 +338,7 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return projection(d.properties.coords)[1];
                 })
-                //.attr('stroke', 'red')
+            //.attr('stroke', 'red')
         } else {
             d3.select(this).html('&#9664; ' + name.toUpperCase() + ' &#9655;')
             selection
