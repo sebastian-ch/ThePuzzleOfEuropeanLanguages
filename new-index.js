@@ -139,10 +139,12 @@ function addMovingBubbles(movingBubbles) {
         .attr('cy', function (d) {
             return projection(d.geometry.coordinates)[1]
         })
-        .attr('fill', 'black')
+        .attr('fill', function (d) {
+            return d.properties.color
+        })
         .attr('fillOpacity', 0)
-        .attr('stroke', 'red')
-        .attr('stroke-width', 2)
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1)
         .attr("class", function (d) {
             return "movingBubbles " + d.properties.family + " " + d.properties.Genus_CAPS.toLowerCase()
         })
@@ -287,7 +289,7 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return projection(d.properties.coords)[1];
                 })
-                .attr('stroke', 'red')
+                //.attr('stroke', 'red')
         } else {
             d3.select(this).html('&#9664; ' + name.toUpperCase() + ' &#9655;')
             selection
@@ -345,5 +347,6 @@ function toTheRight() {
         .attr('cy', function (d) {
             return projection(d.properties.coords)[1];
         })
-        .attr('stroke', 'red')
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1)
 }
