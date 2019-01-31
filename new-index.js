@@ -262,6 +262,12 @@ function addMovingBubbles(movingBubbles) {
 
     }
 
+   /* d3.selectAll('.button').on('click', function (d) {
+        if (this.classed('filled') {
+
+        })
+    }) */
+
 
     d3.selectAll('.name').on('click', function (d) {
         var name = this.id;
