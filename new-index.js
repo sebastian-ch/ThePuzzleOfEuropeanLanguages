@@ -149,8 +149,8 @@ function addMovingBubbles(movingBubbles) {
             return d.properties.color
         })
         .attr('opacity', 1)
-        .attr('stroke', 'black')
-        .attr('stroke-width', 2)
+        //.attr('stroke', 'black')
+        //.attr('stroke-width', 2)
         .attr("class", function (d) {
             return "movingBubbles " + d.properties.family + " " + d.properties.Genus_CAPS.toLowerCase()
         })
@@ -326,8 +326,8 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return d.properties.bubbley
                 })
-                .attr('stroke', 'black')
-                .attr('stroke-width', 2)
+                //.attr('stroke', 'black')
+                //.attr('stroke-width', 2)
 
 
         }
@@ -353,8 +353,8 @@ function toTheLeftToTheLeft() {
         .attr('cy', function (d) {
             return d.properties.bubbley
         })
-        .attr('stroke', 'black')
-        .attr('stroke-width', 2)
+        //.attr('stroke', 'black')
+        //.attr('stroke-width', 2)
 }
 
 function toTheRight() {
@@ -369,6 +369,6 @@ function toTheRight() {
         .attr('cy', function (d) {
             return projection(d.properties.coords)[1];
         })
-        .attr('stroke', 'black')
-        .attr('stroke-width', 2)
+        //.attr('stroke', 'black')
+        //.attr('stroke-width', 2)
 }
