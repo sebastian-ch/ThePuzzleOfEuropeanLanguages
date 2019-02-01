@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    
+
     <title>European Puzzle Game</title>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Muli|Raleway|Thasadith" rel="stylesheet">
@@ -12,17 +12,27 @@
 
 <body>
     <!--<h1>&#9665; European Puzzle Game &#9654;</h1>-->
+    <div id='title'>
+        <h1>
+            <div class='button left' id='Switch' onclick="toTheLeftToTheLeft()"> &#9665;</div>
+            <div id='words'>  European Puzzle Game  </div>
+            <div class='button right' id='Switch' onclick="toTheRight()"> &#9654;</div>
+        </h1>
+    </div>
+    
     <div class='middle-menu'>
         <!--<div class='button' id='Switch'><input name="updateButton" type="button" value="LEFT!" onclick="toTheLeftToTheLeft()" /></div>
             <div class='button' id='Switch'><input name="updateButton" type="button" value="RIGHT!" onclick="toTheRight()" /></div> 
             <div class='button' id='Switch'><button type="button"  onclick="toTheLeftToTheLeft()" />&#9665;</div>
-            <div class='button' id='Switch'><button type="button"  onclick="toTheRight()" />&#9654;</div> -->
-            <div class='button' id='Switch' onclick="toTheLeftToTheLeft()">&#9665;</div>
-            <div class='button filled' id='Switch' onclick="toTheRight()">&#9654;</div>
+            <div class='button' id='Switch'><button type="button"  onclick="toTheRight()" />&#9654;</div> 
+            <div class='button left' id='Switch' onclick="toTheLeftToTheLeft()">&#9665;</div>
+            <div class='button right' id='Switch' onclick="toTheRight()">&#9654;</div> -->
+        <!-- <h1><div class='button left' id='Switch' onclick="toTheLeftToTheLeft()">&#9665;</div>European Puzzle Game<div class='button right' id='Switch' onclick="toTheRight()">&#9654;</div></h1> -->
+
     </div>
-   
+
     <div id="container">
-        <h1>&#9665; European Puzzle Game &#9654;</h1>
+        <!---<h1>&#9665; European Puzzle Game &#9654;</h1>-->
     </div>
 
     <table>
@@ -67,7 +77,7 @@
         </tr>
 
     </table>
-    
+
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.1/d3-annotation.js"></script>

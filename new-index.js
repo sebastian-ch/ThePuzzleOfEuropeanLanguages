@@ -343,7 +343,7 @@ function addMovingBubbles(movingBubbles) {
 
 function toTheLeftToTheLeft() {
 
-    if (d3.select('.button').classed('filled')) {
+   /* if (d3.select('.button').classed('filled')) {
 
         d3.select('.button').classed('filled', false);
         d3.select('.button').html('&#9665;');
@@ -351,7 +351,10 @@ function toTheLeftToTheLeft() {
         d3.select('.button').classed('filled', true);
         d3.select('.button').html('&#9664;');
        
-    }
+    } */
+
+    d3.select('.left').html('&#9664;');
+    d3.select('.right').html('&#9655;');
 
     d3.selectAll('.movingBubbles')
         .classed('leftside', true).raise()
@@ -368,6 +371,9 @@ function toTheLeftToTheLeft() {
 }
 
 function toTheRight() {
+
+    d3.select('.left').html('&#9665;');
+    d3.select('.right').html('&#9654;');
 
     d3.selectAll('.movingBubbles')
         .classed('leftside', false).raise()
