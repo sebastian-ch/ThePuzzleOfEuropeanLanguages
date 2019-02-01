@@ -1,11 +1,15 @@
+
+//gets width of container div and makes that the map width
 var width = parseInt(d3.select('#container').style('width')),
     height = 700;
 
+//add svg element to container div
 var svg = d3.select("#container")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
+//geojsons we are loading in
 var files = [
     "geojsons/europeWrussia2.geojson",
     "geojsons/bubbleChart.geojson",
@@ -13,6 +17,7 @@ var files = [
     "geojsons/movingBubbles26-1.geojson",
 ];
 
+//empty array for promise handling
 var promises = [];
 
 files.forEach(function (url) {
@@ -28,19 +33,23 @@ Promise.all(promises).then(function (values) {
 
 });
 
+//create separate items for each geojson
 var basemapG = svg.append("g"),
     bubbleChartG = svg.append("g"),
     mapBubblesG = svg.append("g"),
     movingBubblesG = svg.append("g");
 
+//set projection for map
 var projection = d3.geoMercator();
 var geoPath = d3.geoPath().projection(projection);
-var radius = d3.scaleLog(); //function to scale the bubble chart circles
+//function to scale the bubble chart circles
+var radius = d3.scaleLog();
 
 
 /************************** ADD EUROPE BASEMAP ON THE RIGHT SIDE **********************/
 function addBaseMap(basemap) {
-
+    //project europe and have it fit within the div
+    // +660 to push it over to the right side
     projection.fitSize([width + 660, height], basemap);
     basemapG
         .selectAll("path")
@@ -48,10 +57,10 @@ function addBaseMap(basemap) {
         .enter()
         .append("path")
         .attr("d", geoPath)
-        //.attr("stroke", "whitesmoke")
+        .attr("stroke", "black") //stroke color black
         //.attr("stroke-width", 0.2)
-        .attr("fill", "black")
-        .attr("class", "europe");
+        .attr("fill", "black") //fill color black
+        .attr("class", "europe"); //set the class of this element to europe
 
 }
 
@@ -67,26 +76,22 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .data(bubbleChartBubbles.features, function (d) {
             return d;
         }).enter().append("circle")
-        //make the radius of the bubbles the log of # of speakers *2
         .attr('r', function (d) {
-            return radius(d.properties.speakers) * 2
+            return radius(d.properties.speakers) * 2 //make the radius of the bubbles the log of # of speakers *2
         })
         .attr('cx', function (d) {
-            //don't project bubble chart circles
-            return d.geometry.coordinates[0]
+            return d.geometry.coordinates[0] //don't project bubble chart circles
         })
         .attr('cy', function (d) {
-            //don't project bubble chart circles
-            return d.geometry.coordinates[1]
+            return d.geometry.coordinates[1] //don't project bubble chart circles
         })
         .attr('stroke', function (d) {
-            return d.properties.color
+            return d.properties.color //color each bubble chart bubble
         })
-        .attr('fill', '#323232ff')
-        .attr("class", "bubbleChartBubbles")
+        .attr('fill', '#323232ff') //set fill color same as background to it looks empty
+        .attr("class", "bubbleChartBubbles") //set class to bubbleChartBubbles
         .attr("id", function (d) {
-            //console.log("bubbleChart-" + d.properties.ID);
-            return "bubbleChart-" + d.properties.ID
+            return "bubbleChart-" + d.properties.ID // set id to wals_code
         })
 
 
@@ -124,10 +129,12 @@ function addMovingBubbles(movingBubbles) {
 
     var div = d3.select("body").append("div")
         .attr("class", "popup")
-        .style("opacity", 0);
+        .style("opacity", 0)
+        .style("padding", 0);
 
     d3.select('body').on('click', function (d) {
         div.style("opacity", 0)
+            .style("padding", 0)
     })
 
 
@@ -238,7 +245,7 @@ function addMovingBubbles(movingBubbles) {
 
     function dragged(d) {
 
-        //tooltip.style("display", "none");
+        tooltip.style("display", "none");
         d3.select(this)
             .attr("cx", d3.event.x)
             .attr("cy", d3.event.y);
