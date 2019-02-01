@@ -115,6 +115,13 @@ div.popup {
     color: whitesmoke;	
     background: #323232ff;	
     border: 1px solid whitesmoke;		
-    border-radius: 8px;			
-    pointer-events: none;	
+    border-radius: 8px;		
+    /*pointer-events: none;	*/
+}
+a:link, a:visited {
+    color: whitesmoke;	
+    text-decoration: underline;
+}
+a:hover {
+    opacity: 0.5;
 }

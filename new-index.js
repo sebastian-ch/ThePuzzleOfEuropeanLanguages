@@ -58,7 +58,7 @@ function addBaseMap(basemap) {
 /************************** ADD BUBBLES ON THE BUBBLE CHART SIDE **********************/
 function addBubbleChartBubbles(bubbleChartBubbles) {
 
-    //move all the bubbles up by 100
+    //move all the bubbles up by 100 to center them more
     for (var b in bubbleChartBubbles.features) {
         bubbleChartBubbles.features[b].geometry.coordinates[1] = bubbleChartBubbles.features[b].geometry.coordinates[1] - 100;
     }
@@ -67,14 +67,17 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .data(bubbleChartBubbles.features, function (d) {
             return d;
         }).enter().append("circle")
+        //make the radius of the bubbles the log of # of speakers *2
         .attr('r', function (d) {
             return radius(d.properties.speakers) * 2
         })
         .attr('cx', function (d) {
-            return d.geometry.coordinates[0] //don't project bubble chart circles
+            //don't project bubble chart circles
+            return d.geometry.coordinates[0]
         })
         .attr('cy', function (d) {
-            return d.geometry.coordinates[1] //don't project bubble chart circles
+            //don't project bubble chart circles
+            return d.geometry.coordinates[1]
         })
         .attr('stroke', function (d) {
             return d.properties.color
@@ -120,10 +123,10 @@ function addMapBubbles(mapBubbles) {
 function addMovingBubbles(movingBubbles) {
 
     var div = d3.select("body").append("div")
-            .attr("class", "popup")
-            .style("opacity", 0);
+        .attr("class", "popup")
+        .style("opacity", 0);
 
-    d3.select('body').on('click', function(d) {
+    d3.select('body').on('click', function (d) {
         div.style("opacity", 0)
     })
 
@@ -161,18 +164,18 @@ function addMovingBubbles(movingBubbles) {
         .attr("id", function (d) {
             return "movingBubbles" + d.properties.wals_code_move;
         })
-         .on("mouseover", function (d) {
-             tooltip.style("display", null);
-         })
-         .on("mouseout", function () {
-             tooltip.style("display", "none");
-         })
-         .on("mousemove", function (d) {
-             var xPosition = d3.mouse(this)[0] - 15;
-             var yPosition = d3.mouse(this)[1] - 25;
-             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-             tooltip.select('text').html(d.properties.Name)
-         })
+        .on("mouseover", function (d) {
+            tooltip.style("display", null);
+        })
+        .on("mouseout", function () {
+            tooltip.style("display", "none");
+        })
+        .on("mousemove", function (d) {
+            var xPosition = d3.mouse(this)[0] - 15;
+            var yPosition = d3.mouse(this)[1] - 40;
+            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+            tooltip.select('text').html(d.properties.Name)
+        })
         .on("click", clicked)
         .call(d3.drag()
             .on("start", dragStart)
@@ -190,10 +193,15 @@ function addMovingBubbles(movingBubbles) {
         div.transition()
             .duration(200)
             .style("opacity", .8);
-        div.html("<b>Language: </b>" + d.properties.Name + "<br>" + 
-                 "<b>Family: </b>" + d.properties.family + "<br>" +
-                 "<b>Genus: </b>" + d.properties.Genus_CAPS + "<br>" +
-                 "<b>Approx. # of Speakers: </b>" + d.properties.speakers )
+
+            var languageLink = '<a href="https://wals.info/languoid/lect/wals_code_' + d.properties.wals_code_move + '" target="_blank">' + d.properties.Name + '</a>';
+            var familyLink = '<a href="https://wals.info/languoid/family/' + d.properties.family.replace(/\W/g, '').toLowerCase() + '" target="_blank">' + d.properties.family + '</a>';
+            var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.toLowerCase() + '" target="_blank">' + d.properties.Genus_CAPS + '</a>';
+
+        div.html("<b>Language: </b>" + languageLink + "<br>" +
+                "<b>Family: </b>" + familyLink + "<br>" +
+                "<b>Genus: </b>" + genusLink + "<br>" +
+                "<b>Approx. # of Speakers: </b>" + d.properties.speakers)
             .style("left", (d3.event.pageX + 28) + "px")
             .style("top", (d3.event.pageY - 28) + "px");
 
@@ -279,8 +287,8 @@ function addMovingBubbles(movingBubbles) {
 
         } else if (!d3.select(this).classed('leftside')) {
 
-           /* d3.select('#bubbleChart-' + d.properties.wals_code_move)
-                .attr('stroke', "yellow") */
+            /* d3.select('#bubbleChart-' + d.properties.wals_code_move)
+                 .attr('stroke', "yellow") */
 
             var bubbleMovedX = this.attributes.cx.value;
             var bubbleMovedY = this.attributes.cy.value;
@@ -336,7 +344,7 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return projection(d.properties.coords)[1];
                 })
-            //.attr('stroke', 'red')
+
         } else {
             d3.select(this).html('&#9664; ' + name.toUpperCase() + ' &#9655;')
             selection
@@ -349,14 +357,8 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return d.properties.bubbley
                 })
-            //.attr('stroke', 'black')
-            //.attr('stroke-width', 2)
-
-
         }
-
     })
-
 }
 
 function toTheLeftToTheLeft() {
