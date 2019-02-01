@@ -40,13 +40,14 @@ h3 {
 
 .button {
     float: left;
+    cursor: pointer;
 }
 #words {
     float: left;
 }
 
 #title {
-
+    
     width: 80%;
     margin: 10px auto 10px auto;
     
