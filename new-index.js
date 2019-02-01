@@ -290,7 +290,6 @@ function addMovingBubbles(movingBubbles) {
                     })
             }
 
-
         }
 
     }
@@ -332,26 +331,11 @@ function addMovingBubbles(movingBubbles) {
 
         }
 
-        /*d3.selectAll('.movingBubbles').style('fill', 'black')
-        if(d3.selectAll('.' + name)){
-            d3.selectAll('.' + name).style('fill', 'yellow');
-        } */
-
     })
 
 }
 
 function toTheLeftToTheLeft() {
-
-   /* if (d3.select('.button').classed('filled')) {
-
-        d3.select('.button').classed('filled', false);
-        d3.select('.button').html('&#9665;');
-    } else {
-        d3.select('.button').classed('filled', true);
-        d3.select('.button').html('&#9664;');
-       
-    } */
 
     d3.select('.left').html('&#9664;');
     d3.select('.right').html('&#9655;');
