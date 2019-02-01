@@ -150,6 +150,7 @@ function addMovingBubbles(movingBubbles) {
         }), function (d) {
             return d;
         })
+        
         .enter().append("circle")
         .attr('r', function (d) {
             return radius(d.properties.speakers) * 2
