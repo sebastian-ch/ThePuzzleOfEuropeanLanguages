@@ -7,19 +7,11 @@ var svg = d3.select("#container")
     .attr("height", height);
 
 var files = [
-
     "geojsons/europeWrussia2.geojson",
     "geojsons/bubbleChart.geojson",
     "geojsons/mapBubbles29-1.geojson",
     "geojsons/movingBubbles26-1.geojson",
-
 ];
-
-var basemapG = svg.append("g"),
-    bubbleChartG = svg.append("g"),
-    mapBubblesG = svg.append("g"),
-    movingBubblesG = svg.append("g");
-
 
 var promises = [];
 
@@ -29,13 +21,17 @@ files.forEach(function (url) {
 
 Promise.all(promises).then(function (values) {
 
-    //console.log(values)
     addBaseMap(values[0]);
     addBubbleChartBubbles(values[1]);
     addMapBubbles(values[2]);
     addMovingBubbles(values[3]);
 
 });
+
+var basemapG = svg.append("g"),
+    bubbleChartG = svg.append("g"),
+    mapBubblesG = svg.append("g"),
+    movingBubblesG = svg.append("g");
 
 var projection = d3.geoMercator();
 var geoPath = d3.geoPath().projection(projection);
@@ -158,8 +154,6 @@ function addMovingBubbles(movingBubbles) {
             return d.properties.color
         })
         .attr('opacity', 1)
-        //.attr('stroke', 'black')
-        //.attr('stroke-width', 2)
         .attr("class", function (d) {
             return "movingBubbles " + d.properties.family + " " + d.properties.Genus_CAPS.toLowerCase()
         })
@@ -179,8 +173,6 @@ function addMovingBubbles(movingBubbles) {
              tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
              tooltip.select('text').html(d.properties.Name)
          })
-        //.on("touchstart", nozoom)
-        //.on("touchmove", nozoom)
         .on("click", clicked)
         .call(d3.drag()
             .on("start", dragStart)
@@ -382,8 +374,6 @@ function toTheLeftToTheLeft() {
         .attr('cy', function (d) {
             return d.properties.bubbley
         })
-    //.attr('stroke', 'black')
-    //.attr('stroke-width', 2)
 }
 
 function toTheRight() {
@@ -401,6 +391,4 @@ function toTheRight() {
         .attr('cy', function (d) {
             return projection(d.properties.coords)[1];
         })
-    //.attr('stroke', 'black')
-    //.attr('stroke-width', 2)
 }
