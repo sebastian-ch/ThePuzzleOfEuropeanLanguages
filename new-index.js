@@ -123,6 +123,15 @@ function addMapBubbles(mapBubbles) {
 /************************** ADD MOVING BUBBLES **********************/
 function addMovingBubbles(movingBubbles) {
 
+    var div = d3.select("body").append("div")
+            .attr("class", "popup")
+            .style("opacity", 0);
+
+    d3.select('body').on('click', function(d) {
+        div.style("opacity", 0)
+    })
+
+
     for (var b in movingBubbles.features) {
 
         movingBubbles.features[b].properties.coords = [movingBubbles.features[b].properties.x, movingBubbles.features[b].properties.y]
@@ -158,23 +167,45 @@ function addMovingBubbles(movingBubbles) {
         .attr("id", function (d) {
             return "movingBubbles" + d.properties.wals_code_move;
         })
-        .on("mouseover", function (d) {
-            tooltip.style("display", null);
-        })
-        .on("mouseout", function () {
-            tooltip.style("display", "none");
-        })
-        .on("mousemove", function (d) {
-            var xPosition = d3.mouse(this)[0] - 15;
-            var yPosition = d3.mouse(this)[1] - 25;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select('text').html(d.properties.Name)
-        })
-
+         .on("mouseover", function (d) {
+             tooltip.style("display", null);
+         })
+         .on("mouseout", function () {
+             tooltip.style("display", "none");
+         })
+         .on("mousemove", function (d) {
+             var xPosition = d3.mouse(this)[0] - 15;
+             var yPosition = d3.mouse(this)[1] - 25;
+             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+             tooltip.select('text').html(d.properties.Name)
+         })
+        //.on("touchstart", nozoom)
+        //.on("touchmove", nozoom)
+        .on("click", clicked)
         .call(d3.drag()
             .on("start", dragStart)
             .on("drag", dragged)
             .on("end", dragEnd));
+
+    function nozoom() {
+        d3.event.preventDefault();
+    }
+
+    function clicked(d) {
+
+        div.style("opacity", .9);
+
+        div.transition()
+            .duration(200)
+            .style("opacity", .8);
+        div.html("<b>Language: </b>" + d.properties.Name + "<br>" + 
+                 "<b>Family: </b>" + d.properties.family + "<br>" +
+                 "<b>Genus: </b>" + d.properties.Genus_CAPS + "<br>" +
+                 "<b>Approx. # of Speakers: </b>" + d.properties.speakers )
+            .style("left", (d3.event.pageX + 28) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+
+    }
 
     /************************** TOOLTIP FUNCTIONS **********************/
     var tooltip = svg.append("g")
@@ -198,7 +229,7 @@ function addMovingBubbles(movingBubbles) {
     function dragStart(d) {
 
         d3.event.sourceEvent.stopPropagation();
-        //tooltip.style("display", "none");
+        tooltip.style("display", "none");
         var x = d3.select(this).attr("cx");
         var y = d3.select(this).attr("cy");
 
@@ -206,6 +237,7 @@ function addMovingBubbles(movingBubbles) {
     }
 
     function dragged(d) {
+
         //tooltip.style("display", "none");
         d3.select(this)
             .attr("cx", d3.event.x)
@@ -217,8 +249,8 @@ function addMovingBubbles(movingBubbles) {
 
         if (d3.select(this).classed('leftside')) {
 
-            d3.select('#mapBubbles-' + d.properties.wals_code_move)
-                .attr('stroke', "yellow")
+            /*d3.select('#mapBubbles-' + d.properties.wals_code_move)
+                .attr('stroke', "yellow") */
 
             var bubbleMovedX = this.attributes.cx.value;
             var bubbleMovedY = this.attributes.cy.value;
@@ -255,14 +287,14 @@ function addMovingBubbles(movingBubbles) {
 
         } else if (!d3.select(this).classed('leftside')) {
 
-            d3.select('#bubbleChart-' + d.properties.wals_code_move)
-                .attr('stroke', "yellow")
+           /* d3.select('#bubbleChart-' + d.properties.wals_code_move)
+                .attr('stroke', "yellow") */
 
             var bubbleMovedX = this.attributes.cx.value;
             var bubbleMovedY = this.attributes.cy.value;
 
             var bubbleChartX = d3.select('#bubbleChart-' + d.properties.wals_code_move).attr('cx');
-            
+
             var bubbleChartY = d3.select('#bubbleChart-' + d.properties.wals_code_move).attr('cy');
 
             if (Math.sqrt(Math.pow(Math.abs(bubbleMovedX - bubbleChartX), 2) + Math.pow(Math.abs(bubbleMovedY - bubbleChartY), 2)) < 50) {
@@ -325,8 +357,8 @@ function addMovingBubbles(movingBubbles) {
                 .attr('cy', function (d) {
                     return d.properties.bubbley
                 })
-                //.attr('stroke', 'black')
-                //.attr('stroke-width', 2)
+            //.attr('stroke', 'black')
+            //.attr('stroke-width', 2)
 
 
         }
@@ -350,8 +382,8 @@ function toTheLeftToTheLeft() {
         .attr('cy', function (d) {
             return d.properties.bubbley
         })
-        //.attr('stroke', 'black')
-        //.attr('stroke-width', 2)
+    //.attr('stroke', 'black')
+    //.attr('stroke-width', 2)
 }
 
 function toTheRight() {
@@ -369,6 +401,6 @@ function toTheRight() {
         .attr('cy', function (d) {
             return projection(d.properties.coords)[1];
         })
-        //.attr('stroke', 'black')
-        //.attr('stroke-width', 2)
+    //.attr('stroke', 'black')
+    //.attr('stroke-width', 2)
 }

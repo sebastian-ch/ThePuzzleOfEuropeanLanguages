@@ -103,3 +103,18 @@ table {
 td {
     text-align: center;
 }
+
+div.popup {
+    position: absolute;			
+    text-align: left;			
+    /*width: 240px;*/					
+    height: 80px;					
+    padding: 10px;
+    padding-left: 6px;				
+    font: 18px;	
+    color: whitesmoke;	
+    background: #323232ff;	
+    border: 1px solid whitesmoke;		
+    border-radius: 8px;			
+    pointer-events: none;	
+}
