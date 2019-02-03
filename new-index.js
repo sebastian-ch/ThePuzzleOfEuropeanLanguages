@@ -341,7 +341,7 @@ function addMovingBubbles(movingBubbles) {
         //console.log(selection.classed('leftside'));
 
         if (selection.classed('leftside')) {
-            d3.select(this).html('&#9665; ' + name.toUpperCase() + ' &#9654;')
+            //d3.select(this).html('&#9665; ' + name.toUpperCase() + ' &#9654;')
             selection
                 .classed('leftside', false).raise()
                 .transition()
@@ -354,7 +354,7 @@ function addMovingBubbles(movingBubbles) {
                 })
 
         } else {
-            d3.select(this).html('&#9664; ' + name.toUpperCase() + ' &#9655;')
+            //d3.select(this).html('&#9664; ' + name.toUpperCase() + ' &#9655;')
             selection
                 .classed('leftside', true).raise()
                 .transition()
