@@ -15,19 +15,13 @@ body {
     stroke-width: 2px;
 }
 
-h1 {
-    font-size: 1.4em;
-    font-weight: 120;
-    color: whitesmoke; 
-}
-
 h2,
 h3 {
     width: 90%;
     margin: 10px auto 10px auto;
 }
 
-.button {
+/*.button {
  
     float: left;
     cursor: pointer;
@@ -35,16 +29,40 @@ h3 {
 #words {
     
     float: left;
-}
+} */
 
 #title {
     background-color: rgba(0,0,0,0);
+    
     position: absolute;
-    top: 300px;
+    top: 100px;
     left: 680px;
-    width: 30%;
-    margin: 10px auto 10px auto; 
 }
+
+h1 {
+    
+    font-size: 1.4em;
+    font-weight: 120;
+    color: whitesmoke; 
+    padding: 0px;
+    margin: 10px auto 10px auto;
+    text-align: center;
+    width: 80%;
+}
+
+#myBtn {
+    color: whitesmoke;
+    font-size: 16px;
+    background: #323232ff;
+    border: 1px solid whitesmoke;
+    padding: 10px;
+}
+
+#myBtn:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
 
 #container {
     /*position: absolute; */
@@ -126,18 +144,6 @@ a:hover {
     opacity: 0.5;
 }
 
-#myBtn {
-    color: whitesmoke;
-    font-size: 16px;
-    background: #323232ff;
-    border: 1px solid whitesmoke;
-    padding: 10px;
-}
-
-#myBtn:hover {
-    opacity: 0.5;
-    cursor: pointer;
-}
 
 /* The Modal (background) */
 .modal {
