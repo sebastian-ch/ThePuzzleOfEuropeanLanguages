@@ -19,7 +19,7 @@
             <div class='button right' id='Switch' onclick="toTheRight()">&#9654;</div>
         </h1>
     </div>
-    
+
     <!--   <div class='middle-menu'>
         -<div class='button' id='Switch'><input name="updateButton" type="button" value="LEFT!" onclick="toTheLeftToTheLeft()" /></div>
             <div class='button' id='Switch'><input name="updateButton" type="button" value="RIGHT!" onclick="toTheRight()" /></div> 
@@ -27,11 +27,15 @@
             <div class='button' id='Switch'><button type="button"  onclick="toTheRight()" />&#9654;</div> 
             <div class='button left' id='Switch' onclick="toTheLeftToTheLeft()">&#9665;</div>
             <div class='button right' id='Switch' onclick="toTheRight()">&#9654;</div> -->
-        <!-- <h1><div class='button left' id='Switch' onclick="toTheLeftToTheLeft()">&#9665;</div>European Puzzle Game<div class='button right' id='Switch' onclick="toTheRight()">&#9654;</div></h1>
+    <!-- <h1><div class='button left' id='Switch' onclick="toTheLeftToTheLeft()">&#9665;</div>European Puzzle Game<div class='button right' id='Switch' onclick="toTheRight()">&#9654;</div></h1>
 
     </div> -->
 
+
+
     <div id="container">
+        <!-- Trigger/Open The Modal -->
+    <button id="myBtn">How To Play</button>
         <!---<h1>&#9665; European Puzzle Game &#9654;</h1>-->
     </div>
 
@@ -78,10 +82,51 @@
 
     </table>
 
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
+
+    </div>
+
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.1/d3-annotation.js"></script>
     <script src="new-index.js"></script>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+
 </body>
 
 </html>
