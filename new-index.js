@@ -130,11 +130,12 @@ function addMovingBubbles(movingBubbles) {
     var div = d3.select("body").append("div")
         .attr("class", "popup")
         .style("opacity", 0)
-        .style("padding", 0);
+        
 
     d3.select('body').on('click', function (d) {
         div.style("opacity", 0)
-            .style("padding", 0)
+            .style("padding", 10)
+           
     })
 
 
@@ -196,7 +197,9 @@ function addMovingBubbles(movingBubbles) {
 
     function clicked(d) {
 
-        div.style("opacity", .9);
+        div.style("opacity", .9)
+        .style("padding", 10);
+       
 
         div.transition()
             .duration(200)
@@ -264,7 +267,7 @@ function addMovingBubbles(movingBubbles) {
             var bubbleMovedY = this.attributes.cy.value;
 
             var mapBubbleX = d3.select('#mapBubbles-' + d.properties.wals_code_move).attr('cx');
-            console.log(d.properties.wals_code_move)
+            //console.log(d.properties.wals_code_move)
             var mapBubbleY = d3.select('#mapBubbles-' + d.properties.wals_code_move).attr('cy');
 
             if (Math.sqrt(Math.pow(Math.abs(bubbleMovedX - mapBubbleX), 2) + Math.pow(Math.abs(bubbleMovedY - mapBubbleY), 2)) < 50) {
