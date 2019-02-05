@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     
-
     <title>European Language Puzzle Game</title>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Muli|Raleway|Thasadith" rel="stylesheet">
@@ -22,7 +21,6 @@
        <br>
         <!-- Trigger/Open The Modal -->
         <button id="myBtn">&#9664; how to play &#9654;</button>
-        <!---<h1>&#9665; European Puzzle Game &#9654;</h1>-->
     </div>
 
     <table>
@@ -73,15 +71,13 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-            <p>This game aims to show the similiarites and differences between Eureopean languages.
-                To play, drag the circles from the right over to their correct spots on the left.
-                For another challege, you can click on the arrows by the title to play it from the left to the right.
-                Click on the family and genus names at the bottom to only animate those circles.
-            </p>
+            <p>This game aims to show the similiarites and differences between Eureopean languages.</p>
+                <p>To play, drag the circles from the right over to their correct spots on the left.</p>
+                <p>For another challege, you can click on the arrows by the title to play it from the left to the right.</p>
+                <p>Click on the family and genus names at the bottom to only animate those circles.</p>
         </div>
 
     </div>
-
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="new-index.js"></script>
@@ -93,18 +89,10 @@
         // Get the button that opens the modal
         var btn = document.getElementById("myBtn");
 
-        // Get the <span> element that closes the modal
-        //var span = document.getElementsByClassName("close")[0];
-
         // When the user clicks on the button, open the modal 
         btn.onclick = function () {
             modal.style.display = "block";
         }
-
-        // When the user clicks on <span> (x), close the modal
-       /* span.onclick = function () {
-            modal.style.display = "none";
-        } */
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
@@ -113,7 +101,6 @@
             }
         }
     </script>
-
 
 </body>
 

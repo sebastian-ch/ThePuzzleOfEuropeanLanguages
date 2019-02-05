@@ -95,7 +95,6 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
             return "bubbleChart-" + d.properties.ID // set id to wals_code
         })
 
-
 }
 
 /************************** ADD INVISIBLE BUBBLES ON RIGHT SIDE **********************/
@@ -116,23 +115,23 @@ function addMapBubbles(mapBubbles) {
         .attr('cy', function (d) {
             return projection(d.geometry.coordinates)[1]
         })
-        //.attr('stroke', 'whitesmoke')
-        .attr('fill-opacity', 0)
-        //.attr('fill', '#323232ff')
+    
+        .attr('fill-opacity', 0) //make them invisible
         .attr("class", "mapBubbles")
         .attr("id", function (d) {
-            return "mapBubbles-" + d.properties.wals_code
+            return "mapBubbles-" + d.properties.wals_code //give each bubble wals code as id
         })
 
 }
 /************************** ADD MOVING BUBBLES **********************/
 function addMovingBubbles(movingBubbles) {
 
+    //initialize popup div
     var div = d3.select("body").append("div")
         .attr("class", "popup")
         .style("opacity", 0)
 
-
+    //remove popup when you click anywhere
     d3.select('body').on('click', function (d) {
         div.style("opacity", 0)
             .style("padding", 10)
@@ -140,6 +139,7 @@ function addMovingBubbles(movingBubbles) {
     })
 
 
+    //move all the bubbles up by 100 to center them more
     for (var b in movingBubbles.features) {
 
         movingBubbles.features[b].properties.coords = [movingBubbles.features[b].properties.x, movingBubbles.features[b].properties.y]
@@ -263,7 +263,6 @@ function addMovingBubbles(movingBubbles) {
 
     function dragEnd(d) {
 
-
         if (d3.select(this).classed('leftside')) {
 
             /*d3.select('#mapBubbles-' + d.properties.wals_code_move)
@@ -338,9 +337,7 @@ function addMovingBubbles(movingBubbles) {
                         return projection(d.geometry.coordinates)[1]
                     })
             }
-
         }
-
     }
 
     d3.selectAll('.name').on('click', function (d) {
