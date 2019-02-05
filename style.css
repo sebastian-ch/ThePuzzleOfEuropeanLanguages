@@ -21,40 +21,26 @@ h3 {
     margin: 10px auto 10px auto;
 }
 
-/*.button {
- 
-    float: left;
+.button {
     cursor: pointer;
 }
-#words {
-    
-    float: left;
-} */
 
-#title {
-    background-color: rgba(0,0,0,0);
-    
-    position: absolute;
-    top: 100px;
-    left: 680px;
-}
-
-h1 {
+.title-bar {
     
     font-size: 1.4em;
     font-weight: 120;
     color: whitesmoke; 
     padding: 0px;
     margin: 10px auto 10px auto;
-    text-align: center;
-    width: 80%;
+    /*text-align: center;
+    width: 80%; */
 }
 
 #myBtn {
     color: whitesmoke;
     font-size: 16px;
     background: #323232ff;
-    border: 1px solid whitesmoke;
+    /*border: 1px solid whitesmoke; */
     padding: 10px;
 }
 

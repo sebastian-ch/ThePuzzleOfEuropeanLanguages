@@ -1,4 +1,3 @@
-
 //gets width of container div and makes that the map width
 var width = parseInt(d3.select('#container').style('width')),
     height = 700;
@@ -11,7 +10,8 @@ var svg = d3.select("#container")
 
 //geojsons we are loading in
 var files = [
-    "geojsons/europeWrussia2.geojson",
+    //"geojsons/europeWrussia2.geojson",
+    "geojsons/europeWrussia-dissovled.geojson",
     "geojsons/bubbleChart.geojson",
     "geojsons/mapBubbles29-1.geojson",
     "geojsons/movingBubbles26-1.geojson",
@@ -57,9 +57,9 @@ function addBaseMap(basemap) {
         .enter()
         .append("path")
         .attr("d", geoPath)
-        .attr("stroke", "black") //stroke color black
-        //.attr("stroke-width", 0.2)
-        .attr("fill", "black") //fill color black
+        .attr("stroke", "white") //stroke color black
+        .attr("stroke-width", 0.2)
+        .attr("fill", "#323232ff") //fill color black
         .attr("class", "europe"); //set the class of this element to europe
 
 }
@@ -130,12 +130,12 @@ function addMovingBubbles(movingBubbles) {
     var div = d3.select("body").append("div")
         .attr("class", "popup")
         .style("opacity", 0)
-        
+
 
     d3.select('body').on('click', function (d) {
         div.style("opacity", 0)
             .style("padding", 10)
-           
+
     })
 
 
@@ -151,7 +151,7 @@ function addMovingBubbles(movingBubbles) {
         }), function (d) {
             return d;
         })
-        
+
         .enter().append("circle")
         .attr('r', function (d) {
             return radius(d.properties.speakers) * 2
@@ -185,6 +185,8 @@ function addMovingBubbles(movingBubbles) {
             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
             tooltip.select('text').html(d.properties.Name)
         })
+        .on("touchstart", nozoom)
+        .on("touchmove", nozoom)
         .on("click", clicked)
         .call(d3.drag()
             .on("start", dragStart)
@@ -197,17 +199,19 @@ function addMovingBubbles(movingBubbles) {
 
     function clicked(d) {
 
+        if (d3.event.defaultPrevented) return;
+
         div.style("opacity", .9)
-        .style("padding", 10);
-       
+            .style("padding", 10);
+
 
         div.transition()
             .duration(200)
             .style("opacity", .8);
 
-            var languageLink = '<a href="https://wals.info/languoid/lect/wals_code_' + d.properties.wals_code_move + '" target="_blank">' + d.properties.Name + '</a>';
-            var familyLink = '<a href="https://wals.info/languoid/family/' + d.properties.family.replace(/\W/g, '').toLowerCase() + '" target="_blank">' + d.properties.family + '</a>';
-            var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.toLowerCase() + '" target="_blank">' + d.properties.Genus_CAPS + '</a>';
+        var languageLink = '<a href="https://wals.info/languoid/lect/wals_code_' + d.properties.wals_code_move + '" target="_blank">' + d.properties.Name + '</a>';
+        var familyLink = '<a href="https://wals.info/languoid/family/' + d.properties.family.replace(/\W/g, '').toLowerCase() + '" target="_blank">' + d.properties.family + '</a>';
+        var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.toLowerCase() + '" target="_blank">' + d.properties.Genus_CAPS + '</a>';
 
         div.html("<b>Language: </b>" + languageLink + "<br>" +
                 "<b>Family: </b>" + familyLink + "<br>" +
@@ -215,6 +219,7 @@ function addMovingBubbles(movingBubbles) {
                 "<b>Approx. # of Speakers: </b>" + d.properties.speakers)
             .style("left", (d3.event.pageX + 28) + "px")
             .style("top", (d3.event.pageY - 28) + "px");
+
 
     }
 
@@ -238,8 +243,10 @@ function addMovingBubbles(movingBubbles) {
 
     /************************** DRAG FUNCTIONS **********************/
     function dragStart(d) {
+        
+        //literally causes an error BUT works so no idea
+        d3.event.preventDefault(); 
 
-        d3.event.sourceEvent.stopPropagation();
         tooltip.style("display", "none");
         var x = d3.select(this).attr("cx");
         var y = d3.select(this).attr("cy");
