@@ -129,12 +129,13 @@ function addMovingBubbles(movingBubbles) {
     var div = d3.select("body").append("div")
         .attr("class", "popup")
         .style("opacity", 0)
+        .style("display", "none")
 
     //remove popup when you click anywhere
     d3.select('body').on('click', function (d) {
         div.style("opacity", 0)
             .style("padding", 10)
-
+            .style("display", "none")
     })
 
 
@@ -201,12 +202,11 @@ function addMovingBubbles(movingBubbles) {
 
         if (d3.event.defaultPrevented) return;
 
-        div.style("opacity", .9)
-            .style("padding", 10);
-
         div.transition()
             .duration(200)
-            .style("opacity", .8);
+            .style("opacity", .8)
+            .style("display", null)
+            .style("padding", 10);
 
         var languageLink = '<a href="https://wals.info/languoid/lect/wals_code_' + d.properties.wals_code_move + '" target="_blank" style="color:'+ d.properties.color +'">' + d.properties.Name + '</a>';
         var familyLink = '<a href="https://wals.info/languoid/family/' + d.properties.family.replace(/\W/g, '').toLowerCase() + '" target="_blank" style="color:'+ d.properties.color +'">' + d.properties.family + '</a>';
@@ -217,8 +217,7 @@ function addMovingBubbles(movingBubbles) {
                 "<b>Family: " + familyLink + "<br>" +
                 "<b>Approx. # of Speakers: <p class='speakers' style='color:"+ d.properties.color +"'>" + d.properties.speakers + "</p> </b>")
             .style("left", (d3.event.pageX + 28) + "px")
-            .style("top", (d3.event.pageY - 28) + "px")
-            ;
+            .style("top", (d3.event.pageY - 28) + "px");
 
     }
 
