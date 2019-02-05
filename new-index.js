@@ -10,8 +10,8 @@ var svg = d3.select("#container")
 
 //geojsons we are loading in
 var files = [
-    //"geojsons/europeWrussia2.geojson",
-    "geojsons/europeWrussia-dissovled.geojson",
+    "geojsons/europeWrussia2.geojson",
+    //"geojsons/europeWrussia-dissovled.geojson",
     "geojsons/bubbleChart.geojson",
     "geojsons/mapBubbles29-1.geojson",
     "geojsons/movingBubbles26-1.geojson",
@@ -57,9 +57,9 @@ function addBaseMap(basemap) {
         .enter()
         .append("path")
         .attr("d", geoPath)
-        .attr("stroke", "white") //stroke color black
-        .attr("stroke-width", 0.2)
-        .attr("fill", "#323232ff") //fill color black
+        .attr("stroke", "#323232ff") //stroke color black
+        .attr("stroke-width", 0.5)
+        .attr("fill", "black") //fill color black
         .attr("class", "europe"); //set the class of this element to europe
 
 }
@@ -88,6 +88,7 @@ function addBubbleChartBubbles(bubbleChartBubbles) {
         .attr('stroke', function (d) {
             return d.properties.color //color each bubble chart bubble
         })
+        //.attr('stroke-width', 0.2)
         .attr('fill', '#323232ff') //set fill color same as background to it looks empty
         .attr("class", "bubbleChartBubbles") //set class to bubbleChartBubbles
         .attr("id", function (d) {
@@ -214,8 +215,8 @@ function addMovingBubbles(movingBubbles) {
         var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.toLowerCase() + '" target="_blank">' + d.properties.Genus_CAPS + '</a>';
 
         div.html("<b>Language: </b>" + languageLink + "<br>" +
-                "<b>Family: </b>" + familyLink + "<br>" +
                 "<b>Genus: </b>" + genusLink + "<br>" +
+                "<b>Family: </b>" + familyLink + "<br>" +
                 "<b>Approx. # of Speakers: </b>" + d.properties.speakers)
             .style("left", (d3.event.pageX + 28) + "px")
             .style("top", (d3.event.pageY - 28) + "px");
@@ -243,7 +244,7 @@ function addMovingBubbles(movingBubbles) {
 
     /************************** DRAG FUNCTIONS **********************/
     function dragStart(d) {
-        
+
         //literally causes an error BUT works so no idea
         d3.event.preventDefault(); 
 

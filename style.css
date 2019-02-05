@@ -26,21 +26,23 @@ h3 {
 }
 
 .title-bar {
-    
     font-size: 1.4em;
     font-weight: 120;
     color: whitesmoke; 
     padding: 0px;
-    margin: 10px auto 10px auto;
+    
+    display: inline-flex;
     /*text-align: center;
+    margin: 10px auto 10px auto;
     width: 80%; */
 }
 
 #myBtn {
+    font-family: 'Raleway', sans-serif;
     color: whitesmoke;
-    font-size: 16px;
+    font-size: 18px;
     background: #323232ff;
-    /*border: 1px solid whitesmoke; */
+    border: 0px;
     padding: 10px;
 }
 
