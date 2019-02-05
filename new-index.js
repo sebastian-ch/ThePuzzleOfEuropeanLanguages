@@ -58,7 +58,7 @@ function addBaseMap(basemap) {
         .attr("d", geoPath)
         .attr("stroke", "#323232ff") //stroke color black
         .attr("stroke-width", 0.5)
-        .attr("fill", "black") //fill color black
+        .attr("fill", "#0f0f0f") //fill color black
         .attr("class", "europe"); //set the class of this element to europe
 
 }
@@ -208,16 +208,17 @@ function addMovingBubbles(movingBubbles) {
             .duration(200)
             .style("opacity", .8);
 
-        var languageLink = '<a href="https://wals.info/languoid/lect/wals_code_' + d.properties.wals_code_move + '" target="_blank">' + d.properties.Name + '</a>';
-        var familyLink = '<a href="https://wals.info/languoid/family/' + d.properties.family.replace(/\W/g, '').toLowerCase() + '" target="_blank">' + d.properties.family + '</a>';
-        var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.replace(/\W/g, '').toLowerCase() + '" target="_blank">' + d.properties.Genus_CAPS + '</a>';
+        var languageLink = '<a href="https://wals.info/languoid/lect/wals_code_' + d.properties.wals_code_move + '" target="_blank" style="color:'+ d.properties.color +'">' + d.properties.Name + '</a>';
+        var familyLink = '<a href="https://wals.info/languoid/family/' + d.properties.family.replace(/\W/g, '').toLowerCase() + '" target="_blank" style="color:'+ d.properties.color +'">' + d.properties.family + '</a>';
+        var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.replace(/\W/g, '').toLowerCase() + '" target="_blank" style="color:'+ d.properties.color +'">' + d.properties.Genus_CAPS + '</a>';
 
-        div.html("<b>Language: </b>" + languageLink + "<br>" +
-                "<b>Genus: </b>" + genusLink + "<br>" +
-                "<b>Family: </b>" + familyLink + "<br>" +
-                "<b>Approx. # of Speakers: </b>" + d.properties.speakers)
+        div.html("<b>Language: " + languageLink + "<br>" +
+                "<b>Genus: " + genusLink + "<br>" +
+                "<b>Family: " + familyLink + "<br>" +
+                "<b>Approx. # of Speakers: <p class='speakers' style='color:"+ d.properties.color +"'>" + d.properties.speakers + "</p> </b>")
             .style("left", (d3.event.pageX + 28) + "px")
-            .style("top", (d3.event.pageY - 28) + "px");
+            .style("top", (d3.event.pageY - 28) + "px")
+            ;
 
     }
 
@@ -237,7 +238,7 @@ function addMovingBubbles(movingBubbles) {
         .style("text-align", "center")
         .attr('fill', 'whitesmoke')
         .attr("font-size", "15px")
-        .attr("font-weight", "bold");
+        //.attr("font-weight", "bold");
 
     /************************** DRAG FUNCTIONS **********************/
     function dragStart(d) {
@@ -278,6 +279,7 @@ function addMovingBubbles(movingBubbles) {
 
                 d3.select(this)
                     .classed("active", false)
+                    .classed("leftside", false)
                     .transition()
                     .duration(500)
                     .attr('cx', function (d) {
@@ -316,6 +318,7 @@ function addMovingBubbles(movingBubbles) {
 
                 d3.select(this)
                     .classed("active", false)
+                    .classed("leftside", true)
                     .transition()
                     .duration(500)
                     .attr('cx', function (d) {
@@ -376,8 +379,8 @@ function addMovingBubbles(movingBubbles) {
 
 function toTheLeftToTheLeft() {
 
-    d3.select('.left').html('&#9664;');
-    d3.select('.right').html('&#9655;');
+    //d3.select('.left').html('&#9664;');
+    //d3.select('.right').html('&#9655;');
 
     d3.selectAll('.movingBubbles')
         .classed('leftside', true).raise()
@@ -393,8 +396,8 @@ function toTheLeftToTheLeft() {
 
 function toTheRight() {
 
-    d3.select('.left').html('&#9665;');
-    d3.select('.right').html('&#9654;');
+    //d3.select('.left').html('&#9665;');
+    //d3.select('.right').html('&#9654;');
 
     d3.selectAll('.movingBubbles')
         .classed('leftside', false).raise()
