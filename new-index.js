@@ -11,7 +11,6 @@ var svg = d3.select("#container")
 //geojsons we are loading in
 var files = [
     "geojsons/europeWrussia2.geojson",
-    //"geojsons/europeWrussia-dissovled.geojson",
     "geojsons/bubbleChart.geojson",
     "geojsons/mapBubbles29-1.geojson",
     "geojsons/movingBubbles26-1.geojson",
