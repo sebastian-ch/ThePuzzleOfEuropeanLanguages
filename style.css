@@ -73,6 +73,20 @@ h3 {
     opacity: 0.5;
 }
 
+.authors {
+    margin: 0;
+    padding: 0;
+    float: left;
+    font-size: 15px;
+}
+
+.datasource {
+    margin: 0;
+    padding: 0;
+    float: right;
+    font-size: 15px;
+}
+
 .name:hover {
     cursor: pointer;
     opacity: 0.5;
@@ -100,8 +114,8 @@ div.popup {
     border-radius: 8px;
 }
 a:link, a:visited {
-/*    color: whitesmoke;	
-    text-decoration: underline;*/
+    color: black;	
+    text-decoration: underline;
     text-decoration: none;
 }
 a:hover {
@@ -135,7 +149,7 @@ a:hover {
     font-family: 'Raleway', sans-serif;
     text-align: center;
     line-height: 1.7;
-   font-size: 19px;
+    font-size: 19px;
     color: black;
     background-color: whitesmoke/*#323232ff*/;
     opacity: 0.7;
