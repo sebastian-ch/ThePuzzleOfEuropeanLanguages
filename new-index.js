@@ -212,7 +212,7 @@ function addMovingBubbles(movingBubbles) {
 
         var languageLink = '<a href="https://wals.info/languoid/lect/wals_code_' + d.properties.wals_code_move + '" target="_blank">' + d.properties.Name + '</a>';
         var familyLink = '<a href="https://wals.info/languoid/family/' + d.properties.family.replace(/\W/g, '').toLowerCase() + '" target="_blank">' + d.properties.family + '</a>';
-        var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.toLowerCase() + '" target="_blank">' + d.properties.Genus_CAPS + '</a>';
+        var genusLink = '<a href="https://wals.info/languoid/genus/' + d.properties.Genus_CAPS.replace(/\W/g, '').toLowerCase() + '" target="_blank">' + d.properties.Genus_CAPS + '</a>';
 
         div.html("<b>Language: </b>" + languageLink + "<br>" +
                 "<b>Genus: </b>" + genusLink + "<br>" +
@@ -220,7 +220,6 @@ function addMovingBubbles(movingBubbles) {
                 "<b>Approx. # of Speakers: </b>" + d.properties.speakers)
             .style("left", (d3.event.pageX + 28) + "px")
             .style("top", (d3.event.pageY - 28) + "px");
-
 
     }
 
