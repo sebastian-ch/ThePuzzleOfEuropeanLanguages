@@ -26,11 +26,11 @@ h3 {
 }
 
 .title-bar {
-    font-size: 1.4em;
+    font-size: 1.8em;
     font-weight: 120;
     color: whitesmoke; 
     padding: 0px;
-    
+    padding-top: 50px;
     display: inline-flex;
     /*text-align: center;
     margin: 10px auto 10px auto;
@@ -50,7 +50,6 @@ h3 {
     opacity: 0.5;
     cursor: pointer;
 }
-
 
 #container {
     /*position: absolute; */
@@ -152,6 +151,7 @@ a:hover {
   .modal-content {
     font-family: 'Raleway', sans-serif;
    /* background-color: #fefefe; */
+   font-size: 20px;
     color: whitesmoke;
     background-color: #323232ff;
     margin: 15% auto; /* 15% from the top and centered */
@@ -160,7 +160,7 @@ a:hover {
     width: 30%; /* Could be more or less, depending on screen size */
   }
   
-  /* The Close Button */
+  /* The Close Button
   .close {
     color: #aaa;
     float: right;
@@ -173,4 +173,4 @@ a:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
+  }  */
