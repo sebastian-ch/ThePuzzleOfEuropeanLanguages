@@ -205,7 +205,6 @@ function addMovingBubbles(movingBubbles) {
         div.style("opacity", .9)
             .style("padding", 10);
 
-
         div.transition()
             .duration(200)
             .style("opacity", .8);
